@@ -62,32 +62,32 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_mainActivity -> {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, HomeFragment()).commit()
-                toolbar.title = "@string/home"
+                toolbar.title = getString(R.string.home)// Задать готовый текст - "@string/home"
             }
             R.id.nav_profileFragment -> {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, ProfileActivity()).commit()
-                toolbar.title = "@string/profile"
+                toolbar.title = getString(R.string.title_activity_menu) // задать через строки
             }
             R.id.nav_charactersFragment -> {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, CharactersFragment()).commit()
-                toolbar.title = "@string/characters"
+                toolbar.title = getString(R.string.characters)
             }
             R.id.nav_weaponFragment -> {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, WeaponFragment()).commit()
-                toolbar.title = "@string/weapon"
+                toolbar.title = getString(R.string.weapon)
             }
             R.id.nav_artifactsFragment -> {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, ArtifactsFragment()).commit()
-                toolbar.title = "@string/artifacts"
+                toolbar.title = getString(R.string.artifacts)
             }
             R.id.nav_informationFragment -> {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, InformationFragment()).commit()
-                toolbar.title = "@string/info"
+                toolbar.title = getString(R.string.info)
             }
 
 
