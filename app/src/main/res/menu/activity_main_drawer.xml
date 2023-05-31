@@ -5,20 +5,24 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/mainActivity"
+            android:id="@+id/nav_mainActivity"
             android:title="@string/home" />
         <item
-            android:id="@+id/profileActivity"
+            android:id="@+id/nav_profileFragment"
             android:title="@string/profile" />
         <item
-            android:id="@+id/charactersActivity"
+            android:id="@+id/nav_charactersFragment"
             android:title="@string/characters" />
         <item
-            android:id="@+id/weaponActivity"
+            android:id="@+id/nav_weaponFragment"
             android:title="@string/weapon" />
         <item
-            android:id="@+id/artifactsActivity"
+            android:id="@+id/nav_artifactsFragment"
             android:title="@string/artifacts" />
+
+        <item
+            android:id="@+id/nav_informationFragment"
+            android:title="@string/info" />
 
     </group>
 </menu>
