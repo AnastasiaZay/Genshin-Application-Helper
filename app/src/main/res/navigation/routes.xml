@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/routes"
+    app:startDestination="@id/mainActivity">
+
+
+    <activity
+        android:id="@+id/artifactsActivity"
+        android:name="com.example.genshinapplication.ArtifactsActivity"
+        android:label="activity_artifacts"
+        tools:layout="@layout/activity_artifacts" />
+    <activity
+        android:id="@+id/charactersActivity"
+        android:name="com.example.genshinapplication.CharactersActivity"
+        android:label="activity_characters"
+        tools:layout="@layout/activity_characters" />
+    <activity
+        android:id="@+id/informationActivity"
+        android:name="com.example.genshinapplication.InformationActivity"
+        android:label="activity_information"
+        tools:layout="@layout/activity_information" />
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.example.genshinapplication.activities.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
+    <activity
+        android:id="@+id/weaponActivity"
+        android:name="com.example.genshinapplication.WeaponActivity"
+        android:label="activity_weapon"
+        tools:layout="@layout/activity_weapon" />
+    <fragment
+        android:id="@+id/artifactsFragment"
+        android:name="com.example.genshinapplication.activities.ArtifactsFragment"
+        android:label="fragment_artifacts"
+        tools:layout="@layout/fragment_artifacts" />
+    <fragment
+        android:id="@+id/charactersFragment"
+        android:name="com.example.genshinapplication.activities.CharactersFragment"
+        android:label="fragment_characters"
+        tools:layout="@layout/fragment_characters" />
+    <fragment
+        android:id="@+id/informationFragment"
+        android:name="com.example.genshinapplication.activities.InformationFragment"
+        android:label="fragment_information"
+        tools:layout="@layout/fragment_information" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.genshinapplication.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/weaponFragment"
+        android:name="com.example.genshinapplication.WeaponFragment"
+        android:label="fragment_weapon"
+        tools:layout="@layout/fragment_weapon" />
+    <fragment
+        android:id="@+id/profileActivity"
+        android:name="com.example.genshinapplication.ProfileActivity"
+        android:label="activity_profile"
+        tools:layout="@layout/activity_profile" />
+    <activity
+        android:id="@+id/artifactProfileActivity"
+        android:name="com.example.genshinapplication.activities.ArtifactProfileActivity"
+        android:label="activity_artifact_profile"
+        tools:layout="@layout/activity_artifact_profile" />
+</navigation>

@@ -1,4 +1,4 @@
-package com.example.genshinapplication.activites
+package com.example.genshinapplication.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
