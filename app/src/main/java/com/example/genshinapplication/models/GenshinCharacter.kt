@@ -13,6 +13,7 @@ class GenshinCharacter() {
     var description: String? = null
     var rarity: Int? = null //4 или 5 звезд
     var birthday: LocalDate? = null
+    var imageUrl: String? = null //Icon
 
 
     //Не из Api

@@ -12,10 +12,13 @@ class Weapon {
     var subStat: String? = null
     var passiveName: String? = null
     var passiveDesc: String? = null
+    var imageUrl: String? = null
 
     //Получение
     var location: String? = null
-    //Материал
+    //Материал из мира
     var ascensionMaterial: String? = null
+    //Материал из подземелья
+    var ascensionDomainMaterial: String? = null
 
 }

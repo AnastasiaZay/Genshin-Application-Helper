@@ -20,33 +20,39 @@ class APIHelper {
     val today = LocalDate.now().dayOfWeek
 
     // Получение перса по его имени
-    fun getCharacterInfo(name: String): GenshinCharacter {
+    fun getCharacterInfo(name: String): GenshinCharacter {  //https://api.genshin.dev/characters/имя-персонажа/icon  - картинки персонажа  (в частности, иконка)
         val request = Request
             .Builder()
-                // Имя персов пиши ЧЕРЕЗ-ТИРЕ
-            .url( "$BASE_URL/characters/${ name.lowercase() }" )
+            // Имя персов пиши ЧЕРЕЗ-ТИРЕ
+            .url("$BASE_URL/characters/${name.lowercase()}")
             .build()
 
-        with( client.newCall( request ).execute() ) {
-            if ( ! this.isSuccessful )
-                throw IOException( "Твой код не работает. Ошибка вот = ${code()}, ${message()}" )
+        val requestIco = Request
+            .Builder()
+            // Имя персов пиши ЧЕРЕЗ-ТИРЕ
+            .url("$BASE_URL/characters/${name.lowercase()}/icon")
+            .build()
 
-            val jsonObject = JSONObject( this.body()!!.string() )
+        with(client.newCall(request).execute()) {
+            if (!this.isSuccessful)
+                throw IOException("Твой код не работает. Ошибка вот = ${code()}, ${message()}")
+
+            val jsonObject = JSONObject(this.body()!!.string())
 
             //Вносим персонажа
             val character = GenshinCharacter()
-                character.name = jsonObject.getString("name")
-                character.title = jsonObject.getString("title")
-                character.vision = jsonObject.getString("vision")
-                character.weapon = jsonObject.getString("weapon")
-                character.nation = jsonObject.getString("nation")
-                character.description = jsonObject.getString("description")
-                character.rarity = jsonObject.getInt("rarity")
-                character.birthday =
-                    LocalDate.parse (
-                        jsonObject.getString("birthday"),
-                        DateTimeFormatter.ofPattern( "yyyy-MM-dd" )
-                    )
+            character.name = jsonObject.getString("name")
+            character.title = jsonObject.getString("title")
+            character.vision = jsonObject.getString("vision")
+            character.weapon = jsonObject.getString("weapon")
+            character.nation = jsonObject.getString("nation")
+            character.description = jsonObject.getString("description")
+            character.rarity = jsonObject.getInt("rarity")
+            character.birthday =
+                LocalDate.parse(
+                    jsonObject.getString("birthday"),
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                )
 
             return character
         }
@@ -57,21 +63,21 @@ class APIHelper {
         val request = Request
             .Builder()
             //
-            .url( "$BASE_URL/artifacts/${ name.lowercase() }" )
+            .url("$BASE_URL/artifacts/${name.lowercase()}")
             .build()
 
-        with( client.newCall( request ).execute() ) {
-            if ( ! this.isSuccessful )
-                throw IOException( "Твой код не работает. Ошибка вот = ${code()}, ${message()}" )
+        with(client.newCall(request).execute()) {
+            if (!this.isSuccessful)
+                throw IOException("Твой код не работает. Ошибка вот = ${code()}, ${message()}")
 
-            val jsonObject = JSONObject( this.body()!!.string() )
+            val jsonObject = JSONObject(this.body()!!.string())
 
             //Вносим артефакт
             val artifact = Artifact()
-                artifact.name = jsonObject.getString("name")
-                artifact.max_rarity = jsonObject.getInt("max_rarity")
-                artifact.piece_2_bonus = jsonObject.getString("2-piece_bonus")
-                artifact.piece_4_bonus = jsonObject.getString("4-piece_bonus")
+            artifact.name = jsonObject.getString("name")
+            artifact.max_rarity = jsonObject.getInt("max_rarity")
+            artifact.piece_2_bonus = jsonObject.getString("2-piece_bonus")
+            artifact.piece_4_bonus = jsonObject.getString("4-piece_bonus")
 
             return artifact
         }
@@ -82,10 +88,10 @@ class APIHelper {
         val request = Request
             .Builder()
             // Имя персов пиши ЧЕРЕЗ-ТИРЕ
-            .url( "$BASE_URL/artifacts/${ name.lowercase() }" )
+            .url("$BASE_URL/artifacts/${name.lowercase()}")
             .build()
 
-        with( client.newCall( request ).execute() ) {
+        with(client.newCall(request).execute()) {
             if (!this.isSuccessful)
                 throw IOException("Твой код не работает. Ошибка вот = ${code()}, ${message()}")
 
@@ -130,3 +136,5 @@ class APIHelper {
         TODO()
     }
 }
+
+// Пример, откуда можно взять картинку https://static.wikia.nocookie.net/gensin-impact/images/c/c4/Item_Philosophies_of_Freedom.png
