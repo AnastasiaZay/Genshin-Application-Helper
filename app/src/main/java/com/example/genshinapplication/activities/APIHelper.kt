@@ -56,7 +56,7 @@ class APIHelper {
     fun getArtifactInfo(name: String): Artifact {
         val request = Request
             .Builder()
-            // Имя персов пиши ЧЕРЕЗ-ТИРЕ
+            //
             .url( "$BASE_URL/artifacts/${ name.lowercase() }" )
             .build()
 
@@ -66,7 +66,7 @@ class APIHelper {
 
             val jsonObject = JSONObject( this.body()!!.string() )
 
-            //Вносим артифакт
+            //Вносим артефакт
             val artifact = Artifact()
                 artifact.name = jsonObject.getString("name")
                 artifact.max_rarity = jsonObject.getInt("max_rarity")
@@ -79,21 +79,39 @@ class APIHelper {
 
     //Оружие
     fun getWeaponInfo(name: String): Weapon {
-        TODO({ по примеру
-            "name": "Akuoumaru",
-            "type": "Claymore",
-            "rarity": 4,
-            "baseAttack": 42,
-            "subStat": "ATK",
-            "passiveName": "Watatsumi Wavewalker",
-            "passiveDesc": "For every point of the entire party's combined maximum Energy capacity, the Elemental Burst DMG of the character equipping this weapon is increased by 0.12/0.15/0.18/0.21/0.24%. A maximum of 40/50/60/70/80% increased Elemental Burst DMG can be achieved this way.",
-            "location": "Gacha",
-            "ascensionMaterial": "distantant-sea"
-        })
+        val request = Request
+            .Builder()
+            // Имя персов пиши ЧЕРЕЗ-ТИРЕ
+            .url( "$BASE_URL/artifacts/${ name.lowercase() }" )
+            .build()
+
+        with( client.newCall( request ).execute() ) {
+            if (!this.isSuccessful)
+                throw IOException("Твой код не работает. Ошибка вот = ${code()}, ${message()}")
+
+            val jsonObject = JSONObject(this.body()!!.string())
+
+            //Вносим оружие
+            val weapon = Weapon()
+            weapon.name = jsonObject.getString("name")
+            weapon.type = jsonObject.getString("type")
+            weapon.rarity = jsonObject.getInt("rarity")
+            weapon.baseAttac = jsonObject.getInt("baseAttac")
+            weapon.subStat = jsonObject.getString("subStat")
+            weapon.passiveName = jsonObject.getString("passiveName")
+            weapon.passiveDesc = jsonObject.getString("passiveDesc")
+            weapon.location = jsonObject.getString("location")
+
+            //Получать не Строку, а сразу класс материал
+            weapon.ascensionMaterial = jsonObject.getString("ascensionMaterial")
+
+            return weapon
+        }
+
     }
 
     //Добыча из подземелий (материалы возвышения оружия)
-    fun getDailyDropsInfo(name: String): List<Drop> {
+    fun getDomainDropsInfo(name: String): List<Drop> {
         TODO()
     }
 
@@ -108,7 +126,7 @@ class APIHelper {
     }
 
     //Добыча с минибоссов (которые за 40 смолы)
-    fun getDailyBossDropsInfo(name: String): List<Drop> {
+    fun getNormalBossDropsInfo(name: String): List<Drop> {
         TODO()
     }
 }
