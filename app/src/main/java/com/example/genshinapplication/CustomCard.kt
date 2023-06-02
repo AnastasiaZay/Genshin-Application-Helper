@@ -9,7 +9,9 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import com.example.genshinapplication.models.GenshinCharacter
+import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
+import java.lang.Exception
 import java.net.URI
 
 class CustomCard : CardView {
@@ -17,7 +19,7 @@ class CustomCard : CardView {
     constructor(context: Context, character: GenshinCharacter) :
             this(
                 context, character.name!!, character.characterUri!!,
-                character.rarity!!, character.weapon!!, character.vision!!
+                character.rarity!!, character.vision!!, character.weapon!!
             )
 
     constructor(
@@ -30,7 +32,19 @@ class CustomCard : CardView {
         inflater.inflate(R.layout.character_card, this, true)
 
         val characterImageView = findViewById<ImageView>(R.id.characterImageView)
-        characterImageView.setImageURI(characterIcon)
+//        characterImageView.setImageURI(characterIcon)
+        //https://static.wikia.nocookie.net/gensin-impact/images/5/59/Traveler_Icon.png/revision/latest
+        Picasso.get().load(characterIcon).into(characterImageView, object:Callback{
+
+            override fun onSuccess() {}
+
+            //Если картинки не загрузились
+            override fun onError(e: Exception?) {
+                Picasso.get().load("https://static.wikia.nocookie.net/gensin-impact/images/5/59/Traveler_Icon.png/revision/latest").into(characterImageView)
+            }
+        })
+
+        println("$characterIcon")
         characterImageView.background = ContextCompat.getDrawable(
             context,
             when (rarity) {
@@ -46,25 +60,25 @@ class CustomCard : CardView {
         val leftImage = findViewById<ImageView>(R.id.leftImageView)
         leftImage.setImageResource(
             when (vision) {
-                "anemo" -> R.drawable.anemo
-                "hydro" -> R.drawable.hydro
-                "electtro" -> R.drawable.electro
-                "pyro" -> R.drawable.pyro
-                "geo" -> R.drawable.geo
-                "cryo" -> R.drawable.cryo
-                "dendro" -> R.drawable.dendro
-                else -> R.drawable.anemo
+                "Anemo" -> R.drawable.anemo
+                "Hydro" -> R.drawable.hydro
+                "Electro" -> R.drawable.electro
+                "Pyro" -> R.drawable.pyro
+                "Geo" -> R.drawable.geo
+                "Cryo" -> R.drawable.cryo
+                "Dendro" -> R.drawable.dendro
+                else -> R.drawable.pyro
             }
         )
 
         val rightImage = findViewById<ImageView>(R.id.rightImageView)
         rightImage.setImageResource(
-            when (vision) {
-                "bow" -> R.drawable.bow_icon
-                "catalyst" -> R.drawable.catalyst_icon
-                "claymore" -> R.drawable.claymore_icon
-                "sword" -> R.drawable.sword_icon
-                "polearm" -> R.drawable.polearm_icon
+            when (weapon) {
+                "Bow" -> R.drawable.bow_icon
+                "Catalyst" -> R.drawable.catalyst_icon
+                "Claymore" -> R.drawable.claymore_icon
+                "Sword" -> R.drawable.sword_icon
+                "Polearm" -> R.drawable.polearm_icon
                 else -> R.drawable.bow_icon
             }
         )

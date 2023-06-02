@@ -21,89 +21,85 @@ class APIHelper {
 
     // Получение перса по его имени
 
-    fun getAllCharacters(): List<GenshinCharacter> {
-        val request = Request
-            .Builder()
-            .url("$BASE_URL/characters")
-            .build()
+//    fun getAllCharacters(): List<GenshinCharacter> {
+//        val request = Request
+//            .Builder()
+//            .url("$BASE_URL/characters")
+//            .build()
+//
+//        val lst = ArrayList<GenshinCharacter>()
+//
+//        client.newCall(request).enqueue(object : Callback {
+//            override fun onFailure(call: Call, e: IOException) {
+//                throw e
+//            }
+//
+//            override fun onResponse(call: Call, res: Response) {
+//                res.use {
+//                if (!res.isSuccessful)
+//                    throw IOException("Твой код не работает. Ошибка вот = ${res.code()}, ${res.message()}")
+//
+//                val jsonArr = JSONArray(res.body()!!.string())
+//
+//                var iterator = 0
+//
+//                while (iterator < jsonArr.length()) {
+//                    lst.add(getCharacterInfo(jsonArr.getString(iterator)))
+//                    iterator++
+//                }
+//            }
+//            }
+//        })
+//
+//        return lst
+//    }
 
-        val lst = ArrayList<GenshinCharacter>()
-
-        client.newCall(request).enqueue(object: Callback
-        {
-            override fun onFailure(call: Call, e: IOException)
-            {
-                throw e
-            }
-
-            override fun onResponse(call: Call, res: Response)
-            {
-                if (!res.isSuccessful)
-                    throw IOException("Твой код не работает. Ошибка вот = ${res.code()}, ${res.message()}")
-
-                val jsonArr = JSONArray( res.body()!!.string() )
-
-                var iterator = 0
-
-                while(iterator < jsonArr.length()) {
-                    lst.add(getCharacterInfo(jsonArr.getString(iterator) ) )
-                    iterator ++
-                }
-            }
-        })
-
-        return lst
-    }
-
-    fun getCharacterInfo(name: String): GenshinCharacter {  //https://api.genshin.dev/characters/имя-персонажа/icon  - картинки персонажа  (в частности, иконка)
-        val request = Request
-            .Builder()
-            // Имя персов пиши ЧЕРЕЗ-ТИРЕ
-            .url("$BASE_URL/characters/${name.lowercase()}")
-            .build()
-
-        var res: Response? = null
-
-        //Вносим персонажа
-        val character = GenshinCharacter()
-
-        client.newCall(request).enqueue(object: Callback
-        {
-            override fun onFailure(call: Call, e: IOException)
-            {
-                throw e
-            }
-
-            override fun onResponse(call: Call, res: Response)
-            {
-                if (!res.isSuccessful)
-                    throw IOException("Твой код не работает. Ошибка вот = ${res.code()}, ${res.message()}")
-
-                parse( res.body()!!.string() )
-
-            }
-
-            private fun parse(response: String): GenshinCharacter {
-                val jsonObject = JSONObject( response )
-
-                character.name = jsonObject.getString("name")
-                //character.title = jsonObject.getString("title")
-                character.vision = jsonObject.getString("vision")
-                character.weapon = jsonObject.getString("weapon")
-                character.nation = jsonObject.getString("nation")
-                character.description = jsonObject.getString("description")
-                character.rarity = jsonObject.getInt("rarity")
-                //val dat = jsonObject.getString("birthday").split("-")
-                //character.birthday = LocalDate.of(0, dat[1].toInt(), dat[2].toInt() )
-                character.characterUri = Uri.parse("$BASE_URL/characters/${name.lowercase()}/icon")
-
-                return character
-            }
-        })
-
-        println("${character.name}=======================" )
-        return character
-    }
+//    fun getCharacterInfo(name: String): GenshinCharacter {  //https://api.genshin.dev/characters/имя-персонажа/icon  - картинки персонажа  (в частности, иконка)
+//        val request = Request
+//            .Builder()
+//            // Имя персов пиши ЧЕРЕЗ-ТИРЕ
+//            .url("$BASE_URL/characters/${name.lowercase()}")
+//            .build()
+//
+//        var res: Response? = null
+//
+//        //Вносим персонажа
+//        val character = GenshinCharacter()
+//
+//        client.newCall(request).enqueue(object : Callback {
+//            override fun onFailure(call: Call, e: IOException) {
+//                throw e
+//            }
+//
+//            override fun onResponse(call: Call, res: Response) {
+//                if (!res.isSuccessful)
+//                    throw IOException("Твой код не работает. Ошибка вот = ${res.code()}, ${res.message()}")
+//
+//                parse(res.body()!!.string())
+//
+//            }
+//
+//            private fun parse(response: String): GenshinCharacter {
+//                val jsonObject = JSONObject(response)
+//
+//                character.name = jsonObject.getString("name")
+//                //character.title = jsonObject.getString("title")
+//                character.vision = jsonObject.getString("vision")
+//                character.weapon = jsonObject.getString("weapon")
+//                character.nation = jsonObject.getString("nation")
+//                character.description = jsonObject.getString("description")
+//                character.rarity = jsonObject.getInt("rarity")
+//                //val dat = jsonObject.getString("birthday").split("-")
+//                //character.birthday = LocalDate.of(0, dat[1].toInt(), dat[2].toInt() )
+//                character.characterUri = Uri.parse("$BASE_URL/characters/${name.lowercase()}/icon")
+//
+//                return character
+//            }
+//        })
+//
+//        println("${character.name}=======================")
+//        return character
+//    }
 
     //Артефакты
     fun getArtifactInfo(name: String): Artifact {
