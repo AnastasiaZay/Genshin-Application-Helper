@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.genshinapplication.CustomCard
 import com.example.genshinapplication.R
+import com.google.android.flexbox.FlexboxLayout
 
 class CharactersFragment : Fragment() {
 
@@ -13,8 +15,20 @@ class CharactersFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_characters, container, false)
+        val view = inflater.inflate(R.layout.fragment_characters, container, false)
+
+        val characterContainer = view.findViewById<FlexboxLayout>(R.id.characterContainer)
+
+        val apiHelper = APIHelper()
+        val characterList = apiHelper.getAllCharacters()
+
+        for ( ch in characterList ) {
+            val card = CustomCard( view.context, ch )
+            println( card )
+            characterContainer.addView( card )
+        }
+
+        return view
     }
 
 }

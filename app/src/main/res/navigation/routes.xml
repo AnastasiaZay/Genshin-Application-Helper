@@ -6,31 +6,12 @@
     app:startDestination="@id/mainActivity">
 
 
-    <activity
-        android:id="@+id/artifactsActivity"
-        android:name="com.example.genshinapplication.ArtifactsActivity"
-        android:label="activity_artifacts"
-        tools:layout="@layout/activity_artifacts" />
-    <activity
-        android:id="@+id/charactersActivity"
-        android:name="com.example.genshinapplication.CharactersActivity"
-        android:label="activity_characters"
-        tools:layout="@layout/activity_characters" />
-    <activity
-        android:id="@+id/informationActivity"
-        android:name="com.example.genshinapplication.InformationActivity"
-        android:label="activity_information"
-        tools:layout="@layout/activity_information" />
+
     <activity
         android:id="@+id/mainActivity"
         android:name="com.example.genshinapplication.activities.MainActivity"
         android:label="activity_main"
         tools:layout="@layout/activity_main" />
-    <activity
-        android:id="@+id/weaponActivity"
-        android:name="com.example.genshinapplication.WeaponActivity"
-        android:label="activity_weapon"
-        tools:layout="@layout/activity_weapon" />
     <fragment
         android:id="@+id/artifactsFragment"
         android:name="com.example.genshinapplication.activities.ArtifactsFragment"

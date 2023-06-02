@@ -1,15 +1,15 @@
 package com.example.genshinapplication.activities
 
+import android.net.Uri
 import com.example.genshinapplication.models.Artifact
 import com.example.genshinapplication.models.Drop
 import com.example.genshinapplication.models.GenshinCharacter
 import com.example.genshinapplication.models.Weapon
-import okhttp3.OkHttpClient
-import okhttp3.Request
+import okhttp3.*
+import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 const val BASE_URL = "https://api.genshin.dev"
 
@@ -20,6 +20,41 @@ class APIHelper {
     val today = LocalDate.now().dayOfWeek
 
     // Получение перса по его имени
+
+    fun getAllCharacters(): List<GenshinCharacter> {
+        val request = Request
+            .Builder()
+            .url("$BASE_URL/characters")
+            .build()
+
+        val lst = ArrayList<GenshinCharacter>()
+
+        client.newCall(request).enqueue(object: Callback
+        {
+            override fun onFailure(call: Call, e: IOException)
+            {
+                throw e
+            }
+
+            override fun onResponse(call: Call, res: Response)
+            {
+                if (!res.isSuccessful)
+                    throw IOException("Твой код не работает. Ошибка вот = ${res.code()}, ${res.message()}")
+
+                val jsonArr = JSONArray( res.body()!!.string() )
+
+                var iterator = 0
+
+                while(iterator < jsonArr.length()) {
+                    lst.add(getCharacterInfo(jsonArr.getString(iterator) ) )
+                    iterator ++
+                }
+            }
+        })
+
+        return lst
+    }
+
     fun getCharacterInfo(name: String): GenshinCharacter {  //https://api.genshin.dev/characters/имя-персонажа/icon  - картинки персонажа  (в частности, иконка)
         val request = Request
             .Builder()
@@ -27,35 +62,40 @@ class APIHelper {
             .url("$BASE_URL/characters/${name.lowercase()}")
             .build()
 
-        val requestIco = Request
-            .Builder()
-            // Имя персов пиши ЧЕРЕЗ-ТИРЕ
-            .url("$BASE_URL/characters/${name.lowercase()}/icon")
-            .build()
+        var res: Response? = null
 
-        with(client.newCall(request).execute()) {
-            if (!this.isSuccessful)
-                throw IOException("Твой код не работает. Ошибка вот = ${code()}, ${message()}")
+        //Вносим персонажа
+        val character = GenshinCharacter()
 
-            val jsonObject = JSONObject(this.body()!!.string())
+        client.newCall(request).enqueue(object: Callback
+        {
+            override fun onFailure(call: Call, e: IOException)
+            {
+                throw e
+            }
 
-            //Вносим персонажа
-            val character = GenshinCharacter()
-            character.name = jsonObject.getString("name")
-            character.title = jsonObject.getString("title")
-            character.vision = jsonObject.getString("vision")
-            character.weapon = jsonObject.getString("weapon")
-            character.nation = jsonObject.getString("nation")
-            character.description = jsonObject.getString("description")
-            character.rarity = jsonObject.getInt("rarity")
-            character.birthday =
-                LocalDate.parse(
-                    jsonObject.getString("birthday"),
-                    DateTimeFormatter.ofPattern("yyyy-MM-dd")
-                )
+            override fun onResponse(call: Call, res: Response)
+            {
+                if (!res.isSuccessful)
+                    throw IOException("Твой код не работает. Ошибка вот = ${res.code()}, ${res.message()}")
 
-            return character
-        }
+                val jsonObject = JSONObject( res.body()!!.string() )
+
+                character.name = jsonObject.getString("name")
+                //character.title = jsonObject.getString("title")
+                character.vision = jsonObject.getString("vision")
+                character.weapon = jsonObject.getString("weapon")
+                character.nation = jsonObject.getString("nation")
+                character.description = jsonObject.getString("description")
+                character.rarity = jsonObject.getInt("rarity")
+                //val dat = jsonObject.getString("birthday").split("-")
+                //character.birthday = LocalDate.of(0, dat[1].toInt(), dat[2].toInt() )
+                character.characterUri = Uri.parse("$BASE_URL/characters/${name.lowercase()}/icon")
+            }
+        })
+
+        println("${character.name}=======================" )
+        return character
     }
 
     //Артефакты

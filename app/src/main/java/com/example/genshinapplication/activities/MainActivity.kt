@@ -1,19 +1,12 @@
 package com.example.genshinapplication.activities
 
-
-import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Toast
-import android.widget.Toolbar
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.navigation.NavHost
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
-import com.example.genshinapplication.ProfileActivity
+import com.example.genshinapplication.ProfileFragment
 import com.example.genshinapplication.R
 import com.example.genshinapplication.WeaponFragment
 import com.google.android.material.navigation.NavigationView
@@ -66,7 +59,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.nav_profileFragment -> {
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, ProfileActivity()).commit()
+                    .replace(R.id.fragment_container, ProfileFragment()).commit()
                 toolbar.title = getString(R.string.title_activity_menu) // задать через строки
             }
             R.id.nav_charactersFragment -> {
@@ -89,8 +82,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     .replace(R.id.fragment_container, InformationFragment()).commit()
                 toolbar.title = getString(R.string.info)
             }
-
-
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true

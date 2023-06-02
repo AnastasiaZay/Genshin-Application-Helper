@@ -1,5 +1,6 @@
 package com.example.genshinapplication.models
 
+import android.net.Uri
 import java.time.LocalDate
 
 class GenshinCharacter() {
@@ -13,8 +14,7 @@ class GenshinCharacter() {
     var description: String? = null
     var rarity: Int? = null //4 или 5 звезд
     var birthday: LocalDate? = null
-    var imageUrl: String? = null //Icon
-
+    var characterUri: Uri? = null //Icon
 
     //Не из Api
     //Материалы возвышения
