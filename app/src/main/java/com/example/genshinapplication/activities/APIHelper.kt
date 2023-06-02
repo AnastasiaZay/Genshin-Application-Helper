@@ -79,7 +79,12 @@ class APIHelper {
                 if (!res.isSuccessful)
                     throw IOException("Твой код не работает. Ошибка вот = ${res.code()}, ${res.message()}")
 
-                val jsonObject = JSONObject( res.body()!!.string() )
+                parse( res.body()!!.string() )
+
+            }
+
+            private fun parse(response: String): GenshinCharacter {
+                val jsonObject = JSONObject( response )
 
                 character.name = jsonObject.getString("name")
                 //character.title = jsonObject.getString("title")
@@ -91,6 +96,8 @@ class APIHelper {
                 //val dat = jsonObject.getString("birthday").split("-")
                 //character.birthday = LocalDate.of(0, dat[1].toInt(), dat[2].toInt() )
                 character.characterUri = Uri.parse("$BASE_URL/characters/${name.lowercase()}/icon")
+
+                return character
             }
         })
 

@@ -25,8 +25,6 @@ class CustomCard : CardView {
         rarity: Int, vision: String, weapon: String
     ) : super(context!!) {
 
-
-        println("$name $rarity -------------------------------------------------")
         val inflater: LayoutInflater = context
             .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         inflater.inflate(R.layout.character_card, this, true)
