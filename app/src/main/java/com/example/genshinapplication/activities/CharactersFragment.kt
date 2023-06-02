@@ -18,6 +18,7 @@ import okhttp3.Response
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
+import java.time.LocalDate
 
 
 class CharactersFragment : Fragment() {
@@ -97,11 +98,11 @@ class CharactersFragment : Fragment() {
                 //character.title = jsonObject.getString("title")
                 character.vision = jsonObject.getString("vision")
                 character.weapon = jsonObject.getString("weapon")
-                character.nation = jsonObject.getString("nation")
-                character.description = jsonObject.getString("description")
+//                character.nation = jsonObject.getString("nation")
+//                character.description = jsonObject.getString("description")
                 character.rarity = jsonObject.getInt("rarity")
-                //val dat = jsonObject.getString("birthday").split("-")
-                //character.birthday = LocalDate.of(0, dat[1].toInt(), dat[2].toInt() )
+//                val dat = jsonObject.getString("birthday").split("-")
+//                character.birthday = LocalDate.of(0, dat[1].toInt(), dat[2].toInt() )
                 character.characterUri = Uri.parse("$BASE_URL/characters/${name.lowercase()}/icon-big")
                 activity!!.runOnUiThread {
                     val card = CustomCard(requireContext(), character)

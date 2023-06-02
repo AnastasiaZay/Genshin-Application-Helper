@@ -34,13 +34,15 @@ class CustomCard : CardView {
         val characterImageView = findViewById<ImageView>(R.id.characterImageView)
 //        characterImageView.setImageURI(characterIcon)
         //https://static.wikia.nocookie.net/gensin-impact/images/5/59/Traveler_Icon.png/revision/latest
-        Picasso.get().load(characterIcon).into(characterImageView, object:Callback{
+        Picasso.get().load(characterIcon).into(characterImageView, object : Callback {
 
             override fun onSuccess() {}
 
             //Если картинки не загрузились
             override fun onError(e: Exception?) {
-                Picasso.get().load("https://static.wikia.nocookie.net/gensin-impact/images/5/59/Traveler_Icon.png/revision/latest").into(characterImageView)
+                Picasso.get()
+                    .load("https://static.wikia.nocookie.net/gensin-impact/images/5/59/Traveler_Icon.png/revision/latest")
+                    .into(characterImageView)
             }
         })
 
@@ -55,7 +57,10 @@ class CustomCard : CardView {
         )
 
         val nameView = findViewById<TextView>(R.id.nameView)
-        nameView.text = name
+        nameView.text = if (name.length > 9)
+            name.take(9) + "..."
+        else
+            name
 
         val leftImage = findViewById<ImageView>(R.id.leftImageView)
         leftImage.setImageResource(
@@ -86,7 +91,7 @@ class CustomCard : CardView {
         this.setOnClickListener {
             val i = Intent(context, CharacterProfileActivity::class.java)
             i.putExtra("name", name)
-            context.startActivity( i )
+            context.startActivity(i)
         }
     }
 }
