@@ -18,12 +18,11 @@ class GenshinCharacter() {
 
     //Не из Api
     //Материалы возвышения
-    var ascensionMaterialBoss: String? = null //Добыча с босса за 40 смолы
-    var ascensionMaterialGem: String? = null //Кристалл стихии
-    var ascensionTalantsMaterialWorld: String? = null //Диковинки мира
-    var ascensionTalantsMaterialMob: String? = null //Добыча с мобов (Возвышение и таланты)
-    var talantsMaterialBoss: String? = null //Добыча с еженедельного босса
-    var talantsBook: String? = null //Книжка
+    var ascensionMaterialBoss: DropFromNormalBoss? = null //Добыча с босса за 40 смолы
+    var ascensionMaterialGem: DropGems? = null //Кристалл стихии
+    var ascensionTalantsMaterial: EnemyDrop? = null //Диковинки мира
+    var talantsMaterialBoss: DropFromWeeklyBoss? = null //Добыча с еженедельного босса
+    var talantsBook: Books? = null //Книжка
 
 
 }

@@ -1,5 +1,6 @@
 package com.example.genshinapplication.activities
 
+import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -31,7 +32,7 @@ class WeaponFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_weapon, container, false)
 
         weaponContainer = view.findViewById(R.id.weaponContainer)
-        run()
+//        run()
 
         return view
     }
@@ -60,14 +61,19 @@ class WeaponFragment : Fragment() {
                 var iterator = 0
                 val lst = ArrayList<Weapon>()
                 while (iterator < jsonArr.length()) {
-                    getCharacterInfo(client,jsonArr.getString(iterator))
+                    getWeaponInfo(client,jsonArr.getString(iterator))
                     iterator++
                 }
 
             }
         })
     }
-    fun getCharacterInfo(client: OkHttpClient, name: String) {  //https://api.genshin.dev/characters/имя-персонажа/icon  - картинки персонажа  (в частности, иконка)
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        run()
+    }
+    fun getWeaponInfo(client: OkHttpClient, name: String) {  //https://api.genshin.dev/characters/имя-персонажа/icon  - картинки персонажа  (в частности, иконка)
         val request = Request
             .Builder()
             // Название оружия пиши ЧЕРЕЗ-ТИРЕ
@@ -83,6 +89,7 @@ class WeaponFragment : Fragment() {
             }
 
             override fun onResponse(call: Call, res: Response) {
+
                 if (!res.isSuccessful)
                     throw IOException("Твой код не работает. Ошибка вот = ${res.code()}, ${res.message()}")
 
@@ -105,9 +112,10 @@ class WeaponFragment : Fragment() {
 //                weapon.ascensionMaterial = jsonObject.getString("location") Надо добавить сам материал!!
 
                 weapon.imageUrl = Uri.parse("$BASE_URL/weapons/${name.lowercase()}/icon")
-                activity!!.runOnUiThread {
-                    val card = CustomWeaponCard(requireContext(), weapon) 
-                    println(card)
+
+                activity?.runOnUiThread {
+                    val card = CustomWeaponCard(requireContext(), weapon)
+
                     weaponContainer.addView(card)
                 }
 

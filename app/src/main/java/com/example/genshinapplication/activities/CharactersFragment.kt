@@ -1,5 +1,6 @@
 package com.example.genshinapplication.activities
 
+import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -31,7 +32,7 @@ class CharactersFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_characters, container, false)
 
         characterContainer = view.findViewById(R.id.characterContainer)
-        run()
+//        run()
 
         return view
     }
@@ -67,6 +68,12 @@ class CharactersFragment : Fragment() {
             }
         })
     }
+
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        run()
+    }
     fun getCharacterInfo(client:OkHttpClient, name: String) {  //https://api.genshin.dev/characters/имя-персонажа/icon  - картинки персонажа  (в частности, иконка)
         val request = Request
             .Builder()
@@ -86,6 +93,7 @@ class CharactersFragment : Fragment() {
                 if (!res.isSuccessful)
                     throw IOException("Твой код не работает. Ошибка вот = ${res.code()}, ${res.message()}")
 
+
                 parse(res.body()!!.string())
 
             }
@@ -103,7 +111,10 @@ class CharactersFragment : Fragment() {
 //                val dat = jsonObject.getString("birthday").split("-")
 //                character.birthday = LocalDate.of(0, dat[1].toInt(), dat[2].toInt() )
                 character.characterUri = Uri.parse("$BASE_URL/characters/${name.lowercase()}/icon-big")
-                activity!!.runOnUiThread {
+
+
+
+                activity?.runOnUiThread {
                     val card = CustomCharacterCard(requireContext(), character)
                     println(card)
                     characterContainer.addView(card)

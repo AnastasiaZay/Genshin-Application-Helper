@@ -1,5 +1,6 @@
 package com.example.genshinapplication.activities
 
+import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -30,7 +31,7 @@ class ArtifactsFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_artifacts, container, false)
 
         artifactContainer = view.findViewById(R.id.artifactsContainer)
-        run()
+//        run()
 
         return view
     }
@@ -59,14 +60,19 @@ class ArtifactsFragment : Fragment() {
                 var iterator = 0
                 val lst = ArrayList<Artifact>()
                 while (iterator < jsonArr.length()) {
-                    getCharacterInfo(client,jsonArr.getString(iterator))
+                    getArtifactInfo(client,jsonArr.getString(iterator))
                     iterator++
                 }
 
             }
         })
     }
-    fun getCharacterInfo(client: OkHttpClient, name: String) {  //https://api.genshin.dev/characters/имя-персонажа/icon  - картинки персонажа  (в частности, иконка)
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        run()
+    }
+    fun getArtifactInfo(client: OkHttpClient, name: String) {  //https://api.genshin.dev/characters/имя-персонажа/icon  - картинки персонажа  (в частности, иконка)
         val request = Request
             .Builder()
             .url("$BASE_URL/artifacts/${name.lowercase()}")
@@ -97,7 +103,10 @@ class ArtifactsFragment : Fragment() {
 //                artifact.piece_4_bonus = jsonObject.getString("4-piece_bonus")
 
                 artifact.circletUri = Uri.parse("$BASE_URL/artifacts/${name.lowercase()}/circlet-of-logos")
-                activity!!.runOnUiThread {
+
+
+
+                activity?.runOnUiThread {
                     val card = CustomArtifactCard(requireContext(), artifact)
                     println(card)
                     artifactContainer.addView(card)

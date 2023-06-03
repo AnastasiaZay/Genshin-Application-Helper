@@ -1,7 +1,6 @@
 package com.example.genshinapplication.cards
 
 import android.content.Context
-import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
 import android.widget.ImageView
@@ -9,35 +8,32 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import com.example.genshinapplication.R
-import com.example.genshinapplication.WeaponProfileActivity
-import com.example.genshinapplication.activities.ArtifactProfileActivity
-import com.example.genshinapplication.models.Artifact
-import com.example.genshinapplication.models.Weapon
+import com.example.genshinapplication.models.IDrop
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import java.lang.Exception
 
-class CustomArtifactCard : CardView {
+class CustomMaterialCard: CardView {
 
-    constructor(context: Context, artifact: Artifact) :
+    constructor(context: Context, drop: IDrop) :
             this(
-                context, artifact.name!!, artifact.circletUri!!,
-                artifact.max_rarity!!
+                context, drop.getDropName()!!, drop.getDropUri()!!,
+                drop.getDropRarity()!!
             )
 
     constructor(
-        context: Context, name: String, circletUri: Uri,
-        max_rarity: Int
+        context: Context, name: String, imageUrl: Uri,
+        rarity: Int
     ) : super(context!!) {
 
         val inflater: LayoutInflater = context
             .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        inflater.inflate(R.layout.artifact_card, this, true)
+        inflater.inflate(R.layout.drop_card, this, true)
 
-        val weaponImageView = findViewById<ImageView>(R.id.artifactImageView)
+        val materialImageView = findViewById<ImageView>(R.id.materialImageView)
 //        characterImageView.setImageURI(characterIcon)
         //https://static.wikia.nocookie.net/gensin-impact/images/5/59/Traveler_Icon.png/revision/latest
-        Picasso.get().load(circletUri).into(weaponImageView, object : Callback {
+        Picasso.get().load(imageUrl).into(materialImageView, object : Callback {
 
             override fun onSuccess() {}
 
@@ -45,14 +41,14 @@ class CustomArtifactCard : CardView {
             override fun onError(e: Exception?) {
                 Picasso.get()
                     .load("https://static.wikia.nocookie.net/gensin-impact/images/5/59/Traveler_Icon.png/revision/latest")
-                    .into(weaponImageView)
+                    .into(materialImageView)
             }
         })
 
-        println("$circletUri")
-        weaponImageView.background = ContextCompat.getDrawable(
+        println("$imageUrl")
+        materialImageView.background = ContextCompat.getDrawable(
             context,
-            when (max_rarity) {
+            when (rarity) {
                 4 -> R.drawable.background_rarity_4_star
                 5 -> R.drawable.background_rarity_5_star
                 else -> R.drawable.background_rarity_3_star
@@ -67,12 +63,11 @@ class CustomArtifactCard : CardView {
 
 
 
-        this.setOnClickListener {
-            val i = Intent(context, ArtifactProfileActivity::class.java)
-            i.putExtra("name", name)
-            context.startActivity(i)
-        }
+//        this.setOnClickListener {
+//            val i = Intent(context, WeaponProfileActivity::class.java)
+//            i.putExtra("name", name)
+//            context.startActivity(i)
+//        }
     }
-
 
 }

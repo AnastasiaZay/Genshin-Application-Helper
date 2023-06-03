@@ -15,11 +15,11 @@
 
         <com.google.android.flexbox.FlexboxLayout
             app:justifyContent="center"
-
+            app:flexWrap="wrap"
             android:id="@+id/characterContainer"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            app:flexWrap="wrap"/>
+            />
 
     </ScrollView>
 
