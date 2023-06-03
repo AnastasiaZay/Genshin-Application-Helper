@@ -49,15 +49,18 @@ class CustomMaterialCard: CardView {
         materialImageView.background = ContextCompat.getDrawable(
             context,
             when (rarity) {
+                1 -> R.drawable.background_rarity_1_star
+                2 -> R.drawable.background_rarity_2_star
+                3 -> R.drawable.background_rarity_3_star
                 4 -> R.drawable.background_rarity_4_star
                 5 -> R.drawable.background_rarity_5_star
-                else -> R.drawable.background_rarity_3_star
+                else -> R.drawable.background_rarity_5a_star
             }
         )
 
         val nameView = findViewById<TextView>(R.id.nameView)
-        nameView.text = if (name.length > 9)
-            name.take(9) + "..."
+        nameView.text = if (name.length > 99)
+            name.take(99) + "..."
         else
             name
 

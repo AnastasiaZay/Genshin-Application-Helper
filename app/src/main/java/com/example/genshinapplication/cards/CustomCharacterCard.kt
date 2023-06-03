@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
-import com.example.genshinapplication.CharacterProfileActivity
+import com.example.genshinapplication.activities.CharacterProfileActivity
 import com.example.genshinapplication.R
 import com.example.genshinapplication.models.GenshinCharacter
 import com.squareup.picasso.Callback
@@ -51,9 +51,12 @@ class CustomCharacterCard : CardView {
         characterImageView.background = ContextCompat.getDrawable(
             context,
             when (rarity) {
+                1 -> R.drawable.background_rarity_1_star
+                2 -> R.drawable.background_rarity_2_star
+                3 -> R.drawable.background_rarity_3_star
                 4 -> R.drawable.background_rarity_4_star
                 5 -> R.drawable.background_rarity_5_star
-                else -> R.drawable.background_rarity_3_star
+                else -> R.drawable.background_rarity_5a_star
             }
         )
 

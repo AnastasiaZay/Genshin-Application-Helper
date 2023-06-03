@@ -53,9 +53,12 @@ class CustomArtifactCard : CardView {
         weaponImageView.background = ContextCompat.getDrawable(
             context,
             when (max_rarity) {
+                1 -> R.drawable.background_rarity_1_star
+                2 -> R.drawable.background_rarity_2_star
+                3 -> R.drawable.background_rarity_3_star
                 4 -> R.drawable.background_rarity_4_star
                 5 -> R.drawable.background_rarity_5_star
-                else -> R.drawable.background_rarity_3_star
+                else -> R.drawable.background_rarity_5a_star
             }
         )
 
