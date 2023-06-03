@@ -1,8 +1,10 @@
 package com.example.genshinapplication.activities
 
+import android.app.ActionBar.LayoutParams
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -28,7 +30,7 @@ class CharacterProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_character_profile)
-        imageView = findViewById<ImageView>(R.id.imageView)
+        imageView = findViewById(R.id.imageView)
         cardsMaterials = findViewById(R.id.cardsMaterials)
         val nameView = findViewById<TextView>(R.id.nameView)
         nameView.text = intent.extras!!.getString("name")
@@ -92,9 +94,19 @@ class CharacterProfileActivity : AppCompatActivity() {
                                         ),
                                         thisItem.getInt("rarity")
                                     )
-                                    println("${ thisItem.getString("name")}========================================fddddddddddddddddddddddddddddddddddddddddddd")
+
                                 }
                                 itemI++
+                            }
+                            runOnUiThread {
+                                //Дни недели вставляем
+                                val weekDay = TextView(applicationContext)
+                                weekDay.layoutParams = LayoutParams(
+                                    LayoutParams.MATCH_PARENT,
+                                    LayoutParams.WRAP_CONTENT
+                                )
+                                weekDay.text = jObject.getJSONArray("availability").toString().drop(1 ).dropLast(1)
+                                cardsMaterials.addView(weekDay)
                             }
                         }
                         i++
