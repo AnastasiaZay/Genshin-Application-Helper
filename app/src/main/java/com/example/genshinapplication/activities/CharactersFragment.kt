@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.genshinapplication.CustomCard
+import com.example.genshinapplication.cards.CustomCharacterCard
 import com.example.genshinapplication.R
 import com.example.genshinapplication.models.GenshinCharacter
 import com.google.android.flexbox.FlexboxLayout
@@ -18,7 +18,6 @@ import okhttp3.Response
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
-import java.time.LocalDate
 
 
 class CharactersFragment : Fragment() {
@@ -37,7 +36,7 @@ class CharactersFragment : Fragment() {
         return view
     }
         fun addCharCard(ch: GenshinCharacter) {
-            val card = CustomCard( requireContext(), ch )
+            val card = CustomCharacterCard( requireContext(), ch )
             println( card )
             characterContainer.addView( card )
         }
@@ -105,7 +104,7 @@ class CharactersFragment : Fragment() {
 //                character.birthday = LocalDate.of(0, dat[1].toInt(), dat[2].toInt() )
                 character.characterUri = Uri.parse("$BASE_URL/characters/${name.lowercase()}/icon-big")
                 activity!!.runOnUiThread {
-                    val card = CustomCard(requireContext(), character)
+                    val card = CustomCharacterCard(requireContext(), character)
                     println(card)
                     characterContainer.addView(card)
                 }

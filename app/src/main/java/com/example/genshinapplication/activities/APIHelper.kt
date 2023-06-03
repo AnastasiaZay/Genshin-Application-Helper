@@ -145,7 +145,7 @@ class APIHelper {
             weapon.name = jsonObject.getString("name")
             weapon.type = jsonObject.getString("type")
             weapon.rarity = jsonObject.getInt("rarity")
-            weapon.baseAttac = jsonObject.getInt("baseAttac")
+            weapon.baseAttack = jsonObject.getInt("baseAttack")
             weapon.subStat = jsonObject.getString("subStat")
             weapon.passiveName = jsonObject.getString("passiveName")
             weapon.passiveDesc = jsonObject.getString("passiveDesc")

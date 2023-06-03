@@ -1,4 +1,4 @@
-package com.example.genshinapplication
+package com.example.genshinapplication.cards
 
 import android.content.Context
 import android.content.Intent
@@ -8,13 +8,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
+import com.example.genshinapplication.CharacterProfileActivity
+import com.example.genshinapplication.R
 import com.example.genshinapplication.models.GenshinCharacter
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import java.lang.Exception
-import java.net.URI
 
-class CustomCard : CardView {
+class CustomCharacterCard : CardView {
 
     constructor(context: Context, character: GenshinCharacter) :
             this(

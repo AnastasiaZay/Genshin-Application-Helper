@@ -29,12 +29,12 @@
         tools:layout="@layout/fragment_information" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.genshinapplication.ProfileFragment"
+        android:name="com.example.genshinapplication.activities.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/weaponFragment"
-        android:name="com.example.genshinapplication.WeaponFragment"
+        android:name="com.example.genshinapplication.activities.WeaponFragment"
         android:label="fragment_weapon"
         tools:layout="@layout/fragment_weapon" />
     <fragment

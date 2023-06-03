@@ -1,4 +1,4 @@
-package com.example.genshinapplication
+package com.example.genshinapplication.activities
 
 import android.net.Uri
 import android.os.Bundle
@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.genshinapplication.activities.BASE_URL
+import com.example.genshinapplication.cards.CustomCharacterCard
+import com.example.genshinapplication.R
+import com.example.genshinapplication.cards.CustomWeaponCard
 import com.example.genshinapplication.models.GenshinCharacter
 import com.example.genshinapplication.models.Weapon
 import com.google.android.flexbox.FlexboxLayout
@@ -33,8 +35,8 @@ class WeaponFragment : Fragment() {
 
         return view
     }
-    fun addCharCard(ch: GenshinCharacter) {
-        val card = CustomCard( requireContext(), ch )
+    fun addCharCard(ch: Weapon) {
+        val card = CustomWeaponCard( requireContext(), ch )
         println( card )
         weaponContainer.addView( card )
     }
@@ -56,7 +58,7 @@ class WeaponFragment : Fragment() {
                 val jsonArr = JSONArray(res.body()!!.string())
 
                 var iterator = 0
-                val lst = ArrayList<GenshinCharacter>()
+                val lst = ArrayList<Weapon>()
                 while (iterator < jsonArr.length()) {
                     getCharacterInfo(client,jsonArr.getString(iterator))
                     iterator++
@@ -104,7 +106,7 @@ class WeaponFragment : Fragment() {
 
                 weapon.imageUrl = Uri.parse("$BASE_URL/weapons/${name.lowercase()}/icon")
                 activity!!.runOnUiThread {
-                    val card = CustomCard(requireContext(), weapon) //Нужна карта для оружия
+                    val card = CustomWeaponCard(requireContext(), weapon) 
                     println(card)
                     weaponContainer.addView(card)
                 }
