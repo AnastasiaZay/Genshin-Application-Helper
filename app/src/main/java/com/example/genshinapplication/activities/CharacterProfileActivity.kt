@@ -82,7 +82,7 @@ class CharacterProfileActivity : AppCompatActivity() {
                     val arr = jObject.getJSONArray("characters")
                     var i = 0
                     while (i < arr.length()) {
-                        if (arr[i].toString() == name) {
+                        if (arr[i].toString() == checkName(name)) {
                             val itemsArr = jObject.getJSONArray("items")
                             var itemI = 0
                             while (itemI < itemsArr.length()) {
@@ -154,8 +154,12 @@ class CharacterProfileActivity : AppCompatActivity() {
                     val dropName = jObject.getString("name")
                     val arr = jObject.getJSONArray("characters")
                     var i = 0
+
                     while (i < arr.length()) { //Идем по массиву персонажей
-                        if (arr[i].toString() == name) {
+                        if(name == "xinyan"){
+                            name = "Xinyan"
+                        }
+                        if (arr[i].toString() == checkName(name)) {
 
                             runOnUiThread {
 
@@ -184,6 +188,9 @@ class CharacterProfileActivity : AppCompatActivity() {
 //                            }
                         }
                         i++
+                        if(name == "Xinyan"){
+                            name = "xinyan" //У Синь Янь проблемы с именем :(
+                        }
                     }
                 }
 
@@ -219,7 +226,7 @@ class CharacterProfileActivity : AppCompatActivity() {
                     val arr = jObject.getJSONArray("characters")
                     var i = 0
                     while (i < arr.length()) { //Идем по массиву персонажей
-                        if (arr[i].toString() == name) {
+                        if (arr[i].toString() == checkName(name)) {
 
                             runOnUiThread {
                                 createDropCard(
@@ -280,7 +287,7 @@ class CharacterProfileActivity : AppCompatActivity() {
                     val arr = jObject.getJSONArray("characters")
                     var i = 0
                     while (i < arr.length()) {
-                        if (arr[i].toString() == name) {
+                        if (arr[i].toString() == checkName(name)) {
                             val itemsArr = jObject.getJSONArray("items")
                             var itemI = 0
                             while (itemI < itemsArr.length()) {
@@ -352,7 +359,7 @@ class CharacterProfileActivity : AppCompatActivity() {
                     val arr = jObject.getJSONArray("characters")
                     var i = 0
                     while (i < arr.length()) {
-                        if (arr[i].toString() == name) {
+                        if (arr[i].toString() == checkName(name)) {
                             val itemsArr = jObject.getJSONArray("items")
                             var itemI = 0
                             while (itemI < itemsArr.length()) {
@@ -399,10 +406,12 @@ class CharacterProfileActivity : AppCompatActivity() {
     private fun getCharacterInfo(
         client: OkHttpClient,
         name: String
+
     ) {  //https://api.genshin.dev/characters/имя-персонажа/icon  - картинки персонажа  (в частности, иконка)
+        var nameForPic = checkName(name.lowercase().replace(" ","-"))
         val request = Request
             .Builder()
-            .url("$BASE_URL/characters/${name.lowercase()}")
+            .url("$BASE_URL/characters/${nameForPic}")
             .build()
 
         //Вносим персонажа
@@ -426,6 +435,8 @@ class CharacterProfileActivity : AppCompatActivity() {
                 val jsonObject = JSONObject(response)
 
                 character.name = jsonObject.getString("name")
+
+//                character.name = nameForPic
                 //character.title = jsonObject.getString("title")
                 character.vision = jsonObject.getString("vision")
                 character.weapon = jsonObject.getString("weapon")
@@ -436,9 +447,14 @@ class CharacterProfileActivity : AppCompatActivity() {
 //                character.birthday = LocalDate.of(0, dat[1].toInt(), dat[2].toInt() )
 
 
-                var n = Uri.parse("$BASE_URL/characters/${name.lowercase()}/icon-big")
+//                println(name.toString().lowercase()+ " ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff")
+
+
+
+                var n = Uri.parse("$BASE_URL/characters/$nameForPic/icon-big")
                 character.characterUri = n
                 println(n)
+                println(nameForPic)
 
                 runOnUiThread {
                     Picasso.get().load(n).into(imageView, object :
@@ -467,5 +483,18 @@ class CharacterProfileActivity : AppCompatActivity() {
             }
         })
 
+    }
+    //Проверяем, чтобы имя соответствовало
+    fun checkName(name: String): String{
+        var nameNew: String = when(name){
+            "kamisato-ayaka" -> "ayaka"
+            "kaedehara-kazuha" -> "kazuha"
+            "sangonomiya-kokomi" -> "kokomi"
+            "kujou-sara" -> "sara"
+            "raiden-shogun" -> "raiden"
+            else -> name
+        }
+        println(nameNew+" tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt")
+        return nameNew
     }
 }

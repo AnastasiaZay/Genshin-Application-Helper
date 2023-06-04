@@ -13,9 +13,12 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
         android:theme="@style/Theme.GenshinApplication"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".activities.BookProfileActivity"
+            android:exported="false" />
         <activity
             android:name=".activities.ArtifactProfileActivity"
             android:exported="false" />
@@ -33,14 +36,13 @@
             android:exported="false" />
         <activity
             android:name=".CharactersActivity"
-            android:exported="false" />
-<!--        <fragment-->
-<!--            android:name=".ProfileActivity"-->
-<!--            android:exported="false" />-->
+            android:exported="false" /> <!-- <fragment -->
+        <!-- android:name=".ProfileActivity" -->
+        <!-- android:exported="false" /> -->
         <activity
             android:name=".activities.MainActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

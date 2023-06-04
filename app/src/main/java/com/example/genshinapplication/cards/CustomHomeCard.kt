@@ -58,10 +58,14 @@ class CustomHomeCard : CardView {
         println("$dropUri")
         var c = 0
         while (c < characters.length()) {
-println(characters.length().toString() + " fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff "+ c)
+        println(characters.length().toString() + " fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff "+ c)
+//            var nameForPic = characters[c].toString().lowercase().replace(" ","-")
+
+        val ss = checkName(characters[c].toString().lowercase().replace(" ","-"))
+            println(ss +" wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww")
             val request = Request
                 .Builder()
-                .url("$BASE_URL/characters/${characters[c]}")
+                .url("$BASE_URL/characters/${ss}")
                 .build()
 
             val character = GenshinCharacter()
@@ -87,7 +91,7 @@ println(characters.length().toString() + " fffffffffffffffffffffffffffffffffffff
                     character.rarity = jsonObject.getInt("rarity")
 
 
-                    var n = Uri.parse("$BASE_URL/characters/${character.name.toString().lowercase().replace(" ", "-")}/icon-big")
+                    var n = Uri.parse("$BASE_URL/characters/${checkName(character.name.toString().lowercase().replace(" ", "-"))}/icon-big")
                     character.characterUri = n
                     println(n)
 //characters[c]
@@ -105,4 +109,17 @@ println(characters.length().toString() + " fffffffffffffffffffffffffffffffffffff
 
     }
 
+    //Проверяем, чтобы имя соответствовало
+    fun checkName(name: String): String{
+        var nameNew: String = when(name){
+            "kamisato-ayaka" -> "ayaka"
+            "kaedehara-kazuha" -> "kazuha"
+            "sangonomiya-kokomi" -> "kokomi"
+            "kujou-sara" -> "sara"
+            "raiden-shogun" -> "raiden"
+            else -> name
+        }
+        println(nameNew+" tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt")
+        return nameNew
+    }
 }
