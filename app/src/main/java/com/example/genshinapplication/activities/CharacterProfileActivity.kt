@@ -18,6 +18,7 @@ import okhttp3.Callback
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
+import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
 import java.lang.Exception
@@ -38,6 +39,11 @@ class CharacterProfileActivity : AppCompatActivity() {
         val client = OkHttpClient()
 
         getCharacterInfo(client, name)
+//Порядок как в стеке
+        getDropFromNormalBoss(client)
+        getDropFromWeeklyBoss(client)
+//        getDropGems(client)
+        getDropFromEnemy(client)
         getDropBooks(client)
     }
 
@@ -105,7 +111,9 @@ class CharacterProfileActivity : AppCompatActivity() {
                                     LayoutParams.MATCH_PARENT,
                                     LayoutParams.WRAP_CONTENT
                                 )
-                                weekDay.text = jObject.getJSONArray("availability").toString().drop(1 ).dropLast(1)
+                                weekDay.text =
+                                    jObject.getJSONArray("availability").toString().drop(1)
+                                        .dropLast(1)
                                 cardsMaterials.addView(weekDay)
                             }
                         }
@@ -123,6 +131,64 @@ class CharacterProfileActivity : AppCompatActivity() {
             .Builder()
             .url("$BASE_URL/materials/boss-material")
             .build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                throw e
+            }
+
+            override fun onResponse(call: Call, res: Response) {
+                if (!res.isSuccessful)
+                    throw IOException("Твой код не работает. Ошибка вот = ${res.code()}, ${res.message()}")
+                parse(res.body()!!.string())
+
+            }
+
+            //Тут надо получить из дропа имя персонажа, тк у персонажа нет инфы о дропе
+            private fun parse(response: String) {
+                val jsonObject = JSONObject(response)
+                val keys = jsonObject.keys()
+                while (keys.hasNext()) {
+                    val key = keys.next()
+                    val jObject = jsonObject.getJSONObject(key)
+                    val dropName = jObject.getString("name")
+                    val arr = jObject.getJSONArray("characters")
+                    var i = 0
+                    while (i < arr.length()) { //Идем по массиву персонажей
+                        if (arr[i].toString() == name) {
+
+                            runOnUiThread {
+
+                                createDropCard(
+                                    dropName,
+                                    Uri.parse(
+                                        "$BASE_URL/materials/boss-material/${
+                                            key.replace("'", "-") //Надо получить заголовок
+                                            
+                                        }"
+                                    ),
+                                    4 //У такого дропа редкость всегда 4
+                                )
+
+
+                            }
+//                            runOnUiThread {
+//                                //Дни недели вставляем
+//                                val weekDay = TextView(applicationContext)
+//                                weekDay.layoutParams = LayoutParams(
+//                                    LayoutParams.MATCH_PARENT,
+//                                    LayoutParams.WRAP_CONTENT
+//                                )
+//                                weekDay.text = jObject.getJSONArray("availability").toString().drop(1 ).dropLast(1)
+//                                cardsMaterials.addView(weekDay)
+//                            }
+                        }
+                        i++
+                    }
+                }
+
+            }
+        })
     }
 
     private fun getDropFromWeeklyBoss(client: OkHttpClient) {
@@ -130,6 +196,61 @@ class CharacterProfileActivity : AppCompatActivity() {
             .Builder()
             .url("$BASE_URL/materials/talent-boss")
             .build()
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                throw e
+            }
+
+            override fun onResponse(call: Call, res: Response) {
+                if (!res.isSuccessful)
+                    throw IOException("Твой код не работает. Ошибка вот = ${res.code()}, ${res.message()}")
+                parse(res.body()!!.string())
+
+            }
+
+            //Тут надо получить из дропа имя персонажа, тк у персонажа нет инфы о дропе
+            private fun parse(response: String) {
+                val jsonObject = JSONObject(response)
+                val keys = jsonObject.keys()
+                while (keys.hasNext()) {
+                    val key = keys.next()
+                    val jObject = jsonObject.getJSONObject(key)
+                    val dropName = jObject.getString("name")
+                    val arr = jObject.getJSONArray("characters")
+                    var i = 0
+                    while (i < arr.length()) { //Идем по массиву персонажей
+                        if (arr[i].toString() == name) {
+
+                            runOnUiThread {
+                                createDropCard(
+                                    dropName,
+                                    Uri.parse(
+                                        "$BASE_URL/materials/talent-boss/${
+                                                key.replace("'", "-") //Надо получить заголовок
+                                        }"
+                                    ),
+                                    5 //У такого дропа редкость всегда 5
+                                )
+
+
+                            }
+//                            runOnUiThread {
+//                                //Дни недели вставляем
+//                                val weekDay = TextView(applicationContext)
+//                                weekDay.layoutParams = LayoutParams(
+//                                    LayoutParams.MATCH_PARENT,
+//                                    LayoutParams.WRAP_CONTENT
+//                                )
+//                                weekDay.text = jObject.getJSONArray("availability").toString().drop(1 ).dropLast(1)
+//                                cardsMaterials.addView(weekDay)
+//                            }
+                        }
+                        i++
+                    }
+                }
+
+            }
+        })
     }
 
     private fun getDropGems(client: OkHttpClient) {
@@ -137,6 +258,69 @@ class CharacterProfileActivity : AppCompatActivity() {
             .Builder()
             .url("$BASE_URL/materials/character-ascension")
             .build()
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                throw e
+            }
+
+            override fun onResponse(call: Call, res: Response) {
+                if (!res.isSuccessful)
+                    throw IOException("Твой код не работает. Ошибка вот = ${res.code()}, ${res.message()}")
+                parse(res.body()!!.string())
+
+            }
+
+            //Тут надо получить из дропа имя персонажа, тк у персонажа нет инфы о дропе
+            private fun parse(response: String) {
+                val jsonObject = JSONObject(response)
+                val keys = jsonObject.keys()
+                while (keys.hasNext()) {
+                    val key = keys.next()
+                    val jObject = jsonObject.getJSONObject(key)
+                    val arr = jObject.getJSONArray("characters")
+                    var i = 0
+                    while (i < arr.length()) {
+                        if (arr[i].toString() == name) {
+                            val itemsArr = jObject.getJSONArray("items")
+                            var itemI = 0
+                            while (itemI < itemsArr.length()) {
+                                val thisItem =
+                                    itemsArr.getJSONObject(itemI)  // Сам предмет, конкретный, типо Книжки "Учения о свободе"
+                                runOnUiThread {
+                                    createDropCard(
+                                        thisItem.getString("name"),
+                                        Uri.parse(
+                                            "$BASE_URL/materials/talent-book/${
+                                                thisItem.getString(
+                                                    "id"
+                                                )
+                                            }"
+                                        ),
+                                        thisItem.getInt("rarity")
+                                    )
+
+                                }
+                                itemI++
+                            }
+                            runOnUiThread {
+                                //Дни недели вставляем
+                                val weekDay = TextView(applicationContext)
+                                weekDay.layoutParams = LayoutParams(
+                                    LayoutParams.MATCH_PARENT,
+                                    LayoutParams.WRAP_CONTENT
+                                )
+                                weekDay.text =
+                                    jObject.getJSONArray("availability").toString().drop(1)
+                                        .dropLast(1)
+                                cardsMaterials.addView(weekDay)
+                            }
+                        }
+                        i++
+                    }
+                }
+
+            }
+        })
     }
 
     private fun getDropFromEnemy(client: OkHttpClient) {
@@ -144,6 +328,71 @@ class CharacterProfileActivity : AppCompatActivity() {
             .Builder()
             .url("$BASE_URL/materials/common-ascension")
             .build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                throw e
+            }
+
+            override fun onResponse(call: Call, res: Response) {
+                if (!res.isSuccessful)
+                    throw IOException("Твой код не работает. Ошибка вот = ${res.code()}, ${res.message()}")
+                parse(res.body()!!.string())
+
+            }
+
+            //Тут надо получить из дропа имя персонажа, тк у персонажа нет инфы о дропе
+            private fun parse(response: String) {
+                val jsonObject = JSONObject(response)
+                val keys = jsonObject.keys()
+                while (keys.hasNext()) {
+                    val key = keys.next()
+                    val jObject = jsonObject.getJSONObject(key)
+                    if(jObject.has("characters")){
+                    val arr = jObject.getJSONArray("characters")
+                    var i = 0
+                    while (i < arr.length()) {
+                        if (arr[i].toString() == name) {
+                            val itemsArr = jObject.getJSONArray("items")
+                            var itemI = 0
+                            while (itemI < itemsArr.length()) {
+                                val thisItem =
+                                    itemsArr.getJSONObject(itemI)  // Сам предмет, конкретный, типо Книжки "Учения о свободе"
+                                runOnUiThread {
+                                    createDropCard(
+                                        thisItem.getString("name"),
+                                        Uri.parse(
+                                            "$BASE_URL/materials/common-ascension/${
+                                                thisItem.getString(
+                                                    "id"
+                                                ).replace("'", "-")
+                                            }"
+                                        ),
+                                        thisItem.getInt("rarity")
+                                    )
+
+                                }
+                                itemI++
+                            }
+//                            runOnUiThread {
+//                                //Дни недели вставляем
+//                                val weekDay = TextView(applicationContext)
+//                                weekDay.layoutParams = LayoutParams(
+//                                    LayoutParams.MATCH_PARENT,
+//                                    LayoutParams.WRAP_CONTENT
+//                                )
+//                                weekDay.text =
+//                                    jObject.getJSONArray("availability").toString().drop(1)
+//                                        .dropLast(1)
+//                                cardsMaterials.addView(weekDay)
+//                            }
+                        }
+                        i++}
+                    }
+                }
+
+            }
+        })
     }
 
 
@@ -209,7 +458,7 @@ class CharacterProfileActivity : AppCompatActivity() {
                         when (character.rarity) {
                             4 -> R.drawable.background_rarity_4_star
                             5 -> R.drawable.background_rarity_5_star
-                            else -> R.drawable.background_rarity_3_star
+                            else -> R.drawable.background_rarity_5a_star
                         }
                     )
                 }

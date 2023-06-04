@@ -1,12 +1,111 @@
 package com.example.genshinapplication.activities
 
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.example.genshinapplication.R
+import com.example.genshinapplication.models.Artifact
+import com.example.genshinapplication.models.GenshinCharacter
+import com.squareup.picasso.Picasso
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
+import org.json.JSONObject
+import java.io.IOException
+import java.lang.Exception
 
+//aftifactCardView
 class ArtifactProfileActivity : AppCompatActivity() {
+    lateinit var name: String
+    lateinit var imageView: ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_artifact_profile)
+        setContentView(R.layout.activity_character_profile)
+        imageView = findViewById(R.id.imageView)
+//        cardsMaterials = findViewById(R.id.cardsMaterials)
+        val nameView = findViewById<TextView>(R.id.nameView)
+        nameView.text = intent.extras!!.getString("name")
+        name = intent.extras!!.getString("name")!!.lowercase().replace(" ", "-")
+        val client = OkHttpClient()
+
+        getArtifactInfo(client, name)
     }
+
+    private fun getArtifactInfo(
+        client: OkHttpClient,
+        name: String
+    ) {  //https://api.genshin.dev/characters/имя-персонажа/icon  - картинки персонажа  (в частности, иконка)
+        val request = Request
+            .Builder()
+            .url("$BASE_URL/artifacts/${name.lowercase()}")
+            .build()
+
+        //Вносим персонажа
+        val artifact = Artifact()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                throw e
+            }
+
+            override fun onResponse(call: Call, res: Response) {
+                if (!res.isSuccessful)
+                    throw IOException("Твой код не работает. Ошибка вот = ${res.code()}, ${res.message()}")
+
+
+                parse(res.body()!!.string())
+
+            }
+
+            private fun parse(response: String) {
+                val jsonObject = JSONObject(response)
+
+                artifact.name = jsonObject.getString("name")
+                artifact.piece_2_bonus = jsonObject.getString("2-piece_bonus")
+                artifact.piece_4_bonus = jsonObject.getString("4-piece_bonus")
+                artifact.max_rarity = jsonObject.getInt("max_rarity")
+                artifact.flowerUri = Uri.parse("$BASE_URL/artifacts/${name.lowercase()}/flower-of-life")
+                artifact.gobletUri = Uri.parse("$BASE_URL/artifacts/${name.lowercase()}/goblet-of-eonothem")
+                artifact.plumeUri = Uri.parse("$BASE_URL/artifacts/${name.lowercase()}/plume-of-death")
+                artifact.sandsUri = Uri.parse("$BASE_URL/artifacts/${name.lowercase()}/sands-of-eon")
+
+                var n = Uri.parse("$BASE_URL/artifacts/${name.lowercase()}/circlet-of-logos")//корону загружаем
+                artifact.circletUri = n
+                println(n)
+                runOnUiThread {
+                    Picasso.get().load(n).into(imageView, object :
+                        com.squareup.picasso.Callback {
+                        override fun onSuccess() {}
+                        //Если картинки не загрузились
+                        override fun onError(e: Exception?) {
+                            Picasso.get()
+                                .load("https://static.wikia.nocookie.net/gensin-impact/images/5/59/Traveler_Icon.png/revision/latest")
+                                .into(imageView)
+                        }
+                    })
+                    imageView.background = ContextCompat.getDrawable(
+                        applicationContext,
+                        when (artifact.max_rarity) {
+                            1 -> R.drawable.background_rarity_1_star
+                            2 -> R.drawable.background_rarity_2_star
+                            3 -> R.drawable.background_rarity_3_star
+                            4 -> R.drawable.background_rarity_4_star
+                            5 -> R.drawable.background_rarity_5_star
+                            else -> R.drawable.background_rarity_5a_star
+                        }
+                    )
+                }
+
+
+            }
+        })
+
+    }
+
+
 }

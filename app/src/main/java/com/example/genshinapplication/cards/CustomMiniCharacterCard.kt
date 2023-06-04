@@ -32,20 +32,24 @@ class CustomMiniCharacterCard : CardView {
             .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         inflater.inflate(R.layout.character_mini_card, this, true)
 
-        val characterImageView = findViewById<ImageView>(R.id.characterImageView)
+        val characterImageView = findViewById<ImageView>(R.id.materialImageView)
 //        characterImageView.setImageURI(characterIcon)
         //https://static.wikia.nocookie.net/gensin-impact/images/5/59/Traveler_Icon.png/revision/latest
-        Picasso.get().load(characterIcon).into(characterImageView, object : Callback {
 
-            override fun onSuccess() {}
+        characterImageView.post{
+            Picasso.get().load(characterIcon).into(characterImageView, object : Callback {
 
-            //Если картинки не загрузились
-            override fun onError(e: Exception?) {
-                Picasso.get()
-                    .load("https://static.wikia.nocookie.net/gensin-impact/images/5/59/Traveler_Icon.png/revision/latest")
-                    .into(characterImageView)
-            }
-        })
+                override fun onSuccess() {}
+
+                //Если картинки не загрузились
+                override fun onError(e: Exception?) {
+                    Picasso.get()
+                        .load("https://static.wikia.nocookie.net/gensin-impact/images/5/59/Traveler_Icon.png/revision/latest")
+                        .into(characterImageView)
+                }
+            })
+
+        }
 
         println("$characterIcon")
         characterImageView.background = ContextCompat.getDrawable(
