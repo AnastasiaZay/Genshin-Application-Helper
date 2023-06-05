@@ -156,7 +156,7 @@ class CharacterProfileActivity : AppCompatActivity() {
                     var i = 0
 
                     while (i < arr.length()) { //Идем по массиву персонажей
-                        if(name == "xinyan"){
+                        if (name == "xinyan") {
                             name = "Xinyan"
                         }
                         if (arr[i].toString() == checkName(name)) {
@@ -168,7 +168,7 @@ class CharacterProfileActivity : AppCompatActivity() {
                                     Uri.parse(
                                         "$BASE_URL/materials/boss-material/${
                                             key.replace("'", "-") //Надо получить заголовок
-                                            
+
                                         }"
                                     ),
                                     4 //У такого дропа редкость всегда 4
@@ -188,7 +188,7 @@ class CharacterProfileActivity : AppCompatActivity() {
 //                            }
                         }
                         i++
-                        if(name == "Xinyan"){
+                        if (name == "Xinyan") {
                             name = "xinyan" //У Синь Янь проблемы с именем :(
                         }
                     }
@@ -233,7 +233,7 @@ class CharacterProfileActivity : AppCompatActivity() {
                                     dropName,
                                     Uri.parse(
                                         "$BASE_URL/materials/talent-boss/${
-                                                key.replace("'", "-") //Надо получить заголовок
+                                            key.replace("'", "-") //Надо получить заголовок
                                         }"
                                     ),
                                     5 //У такого дропа редкость всегда 5
@@ -355,32 +355,32 @@ class CharacterProfileActivity : AppCompatActivity() {
                 while (keys.hasNext()) {
                     val key = keys.next()
                     val jObject = jsonObject.getJSONObject(key)
-                    if(jObject.has("characters")){
-                    val arr = jObject.getJSONArray("characters")
-                    var i = 0
-                    while (i < arr.length()) {
-                        if (arr[i].toString() == checkName(name)) {
-                            val itemsArr = jObject.getJSONArray("items")
-                            var itemI = 0
-                            while (itemI < itemsArr.length()) {
-                                val thisItem =
-                                    itemsArr.getJSONObject(itemI)  // Сам предмет, конкретный, типо Книжки "Учения о свободе"
-                                runOnUiThread {
-                                    createDropCard(
-                                        thisItem.getString("name"),
-                                        Uri.parse(
-                                            "$BASE_URL/materials/common-ascension/${
-                                                thisItem.getString(
-                                                    "id"
-                                                ).replace("'", "-")
-                                            }"
-                                        ),
-                                        thisItem.getInt("rarity")
-                                    )
+                    if (jObject.has("characters")) {
+                        val arr = jObject.getJSONArray("characters")
+                        var i = 0
+                        while (i < arr.length()) {
+                            if (arr[i].toString() == checkName(name)) {
+                                val itemsArr = jObject.getJSONArray("items")
+                                var itemI = 0
+                                while (itemI < itemsArr.length()) {
+                                    val thisItem =
+                                        itemsArr.getJSONObject(itemI)  // Сам предмет, конкретный, типо Книжки "Учения о свободе"
+                                    runOnUiThread {
+                                        createDropCard(
+                                            thisItem.getString("name"),
+                                            Uri.parse(
+                                                "$BASE_URL/materials/common-ascension/${
+                                                    thisItem.getString(
+                                                        "id"
+                                                    ).replace("'", "-")
+                                                }"
+                                            ),
+                                            thisItem.getInt("rarity")
+                                        )
 
+                                    }
+                                    itemI++
                                 }
-                                itemI++
-                            }
 //                            runOnUiThread {
 //                                //Дни недели вставляем
 //                                val weekDay = TextView(applicationContext)
@@ -393,8 +393,9 @@ class CharacterProfileActivity : AppCompatActivity() {
 //                                        .dropLast(1)
 //                                cardsMaterials.addView(weekDay)
 //                            }
+                            }
+                            i++
                         }
-                        i++}
                     }
                 }
 
@@ -408,7 +409,7 @@ class CharacterProfileActivity : AppCompatActivity() {
         name: String
 
     ) {  //https://api.genshin.dev/characters/имя-персонажа/icon  - картинки персонажа  (в частности, иконка)
-        var nameForPic = checkName(name.lowercase().replace(" ","-"))
+        var nameForPic = checkName(name.lowercase().replace(" ", "-"))
         val request = Request
             .Builder()
             .url("$BASE_URL/characters/${nameForPic}")
@@ -450,7 +451,6 @@ class CharacterProfileActivity : AppCompatActivity() {
 //                println(name.toString().lowercase()+ " ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff")
 
 
-
                 var n = Uri.parse("$BASE_URL/characters/$nameForPic/icon-big")
                 character.characterUri = n
                 println(n)
@@ -469,6 +469,7 @@ class CharacterProfileActivity : AppCompatActivity() {
                                 .into(imageView)
                         }
                     })
+
                     imageView.background = ContextCompat.getDrawable(
                         applicationContext,
                         when (character.rarity) {
@@ -477,6 +478,41 @@ class CharacterProfileActivity : AppCompatActivity() {
                             else -> R.drawable.background_rarity_5a_star
                         }
                     )
+
+                    val leftImage = findViewById<ImageView>(R.id.visionImageWiew)
+                    leftImage.setImageResource(
+                        when (character.vision) {
+                            "Anemo" -> R.drawable.anemo
+                            "Hydro" -> R.drawable.hydro
+                            "Electro" -> R.drawable.electro
+                            "Pyro" -> R.drawable.pyro
+                            "Geo" -> R.drawable.geo
+                            "Cryo" -> R.drawable.cryo
+                            "Dendro" -> R.drawable.dendro
+                            else -> R.drawable.pyro
+                        }
+                    )
+
+                    val rightImage = findViewById<ImageView>(R.id.weaponImageView)
+                    rightImage.setImageResource(
+                        when (character.weapon) {
+                            "Bow" -> R.drawable.bow_icon
+                            "Catalyst" -> R.drawable.catalyst_icon
+                            "Claymore" -> R.drawable.claymore_icon
+                            "Sword" -> R.drawable.sword_icon
+                            "Polearm" -> R.drawable.polearm_icon
+                            else -> R.drawable.bow_icon
+                        }
+                    )
+
+                    val nationText = findViewById<TextView>(R.id.nationView)
+                    val descriptionText = findViewById<TextView>(R.id.descriptionView)
+                    val visionText = findViewById<TextView>(R.id.visionView)
+                    val weaponText = findViewById<TextView>(R.id.weaponView)
+                    nationText.text = character.nation
+                    descriptionText.text = character.description
+                    visionText.text = character.vision
+                    weaponText.text = character.weapon
                 }
 
 
@@ -484,9 +520,10 @@ class CharacterProfileActivity : AppCompatActivity() {
         })
 
     }
+
     //Проверяем, чтобы имя соответствовало
-    fun checkName(name: String): String{
-        var nameNew: String = when(name){
+    fun checkName(name: String): String {
+        var nameNew: String = when (name) {
             "kamisato-ayaka" -> "ayaka"
             "kaedehara-kazuha" -> "kazuha"
             "sangonomiya-kokomi" -> "kokomi"
@@ -494,7 +531,7 @@ class CharacterProfileActivity : AppCompatActivity() {
             "raiden-shogun" -> "raiden"
             else -> name
         }
-        println(nameNew+" tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt")
+        println(nameNew + " tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt")
         return nameNew
     }
 }

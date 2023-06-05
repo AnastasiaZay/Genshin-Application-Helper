@@ -15,6 +15,7 @@
     <string name="bow">Стрелковое</string>
     <string name="catalyst">Катализатор</string>
     <string name="polearm">Древковое</string>
+    <string name="i_have">Есть у меня</string>
     <string name="available_at">Доступно в:</string>
     <string name="talents_priority">Приоритет прокачки</string>
     <string name="weekly_boss">Предмет с босса</string>
