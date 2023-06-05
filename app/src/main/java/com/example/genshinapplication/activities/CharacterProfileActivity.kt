@@ -4,12 +4,12 @@ import android.app.ActionBar.LayoutParams
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.example.genshinapplication.R
 import com.example.genshinapplication.cards.CustomMaterialCard
+import com.example.genshinapplication.helpers.BASE_URL
 import com.example.genshinapplication.models.GenshinCharacter
 import com.google.android.flexbox.FlexboxLayout
 import com.squareup.picasso.Picasso
@@ -18,7 +18,6 @@ import okhttp3.Callback
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
-import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
 import java.lang.Exception

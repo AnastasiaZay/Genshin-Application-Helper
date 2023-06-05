@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.genshinapplication.R
 import com.example.genshinapplication.cards.CustomArtifactCard
-import com.example.genshinapplication.cards.CustomWeaponCard
+import com.example.genshinapplication.helpers.BASE_URL
 import com.example.genshinapplication.models.Artifact
 import com.google.android.flexbox.FlexboxLayout
 import okhttp3.Call

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Помощница Паймон</string>
+    <string name="hyperlink_github"><a href="https://github.com/AnastasiaZay/Genshin-Application-Helper">GitHub</a></string>
     <string name="title_activity_menu">Профиль</string>
     <string name="navigation_drawer_open">Открыть меню</string>
     <string name="navigation_drawer_close">Закрыть меню</string>

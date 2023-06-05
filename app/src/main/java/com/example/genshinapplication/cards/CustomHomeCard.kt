@@ -4,14 +4,12 @@ import android.content.Context
 import android.net.Uri
 import android.view.LayoutInflater
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import com.example.genshinapplication.R
 
-import com.example.genshinapplication.activities.BASE_URL
+import com.example.genshinapplication.helpers.BASE_URL
 import com.example.genshinapplication.models.GenshinCharacter
-import com.example.genshinapplication.models.IDrop
 import com.google.android.flexbox.FlexboxLayout
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso

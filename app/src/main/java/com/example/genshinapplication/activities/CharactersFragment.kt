@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.genshinapplication.cards.CustomCharacterCard
 import com.example.genshinapplication.R
+import com.example.genshinapplication.helpers.BASE_URL
 import com.example.genshinapplication.models.GenshinCharacter
 import com.google.android.flexbox.FlexboxLayout
 import okhttp3.Call

@@ -7,12 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import androidx.cardview.widget.CardView
-import androidx.core.content.ContextCompat
 import com.example.genshinapplication.R
 import com.example.genshinapplication.cards.CustomHomeCard
-import com.example.genshinapplication.models.GenshinCharacter
-import com.squareup.picasso.Picasso
+import com.example.genshinapplication.helpers.BASE_URL
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.OkHttpClient
@@ -21,7 +18,6 @@ import okhttp3.Response
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
-import java.lang.Exception
 import java.time.LocalDate
 
 //homeCard

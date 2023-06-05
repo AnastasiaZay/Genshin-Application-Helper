@@ -1,12 +1,9 @@
-package com.example.genshinapplication.activities
+package com.example.genshinapplication.helpers
 
-import android.net.Uri
 import com.example.genshinapplication.models.Artifact
 import com.example.genshinapplication.models.Drop
-import com.example.genshinapplication.models.GenshinCharacter
 import com.example.genshinapplication.models.Weapon
 import okhttp3.*
-import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
 import java.time.LocalDate

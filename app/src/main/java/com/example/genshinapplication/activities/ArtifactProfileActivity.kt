@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.example.genshinapplication.R
+import com.example.genshinapplication.helpers.BASE_URL
 import com.example.genshinapplication.models.Artifact
 import com.squareup.picasso.Picasso
 import okhttp3.Call
