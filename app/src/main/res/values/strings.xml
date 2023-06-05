@@ -18,6 +18,9 @@
     <string name="talents_priority">Talents Priority</string>
     <string name="weekly_boss">Weekly Boss Item</string>
     <string name="artifacts">Artifacts</string>
+    <string name="artifacts_2_pies_bonus">2 pies bonus:</string>
+    <string name="artifacts_4_pies_bonus">4 pies bonus:</string>
+    <string name="max_rarity">Max artifact rarity:</string>
     <string name="artifacts_stats">Artifacts stats</string>
     <string name="bis">BiS</string>
     <string name="alternatives">Alternatives</string>

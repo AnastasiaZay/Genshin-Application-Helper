@@ -19,6 +19,9 @@
     <string name="talents_priority">Приоритет прокачки</string>
     <string name="weekly_boss">Предмет с босса</string>
     <string name="artifacts">Артефакты</string>
+    <string name="artifacts_2_pies_bonus">Бонус комплекта из 2-х артефактов:</string>
+    <string name="artifacts_4_pies_bonus">Бонус комплекта из 4-х артефактов:</string>
+    <string name="max_rarity">Максимальная редкость артефакта:</string>
     <string name="artifacts_stats">Характеристики артефактов</string>
     <string name="bis">БиС</string>
     <string name="alternatives">Альтернативные</string>
