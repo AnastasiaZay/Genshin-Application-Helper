@@ -11,6 +11,7 @@
         android:layout_width="200dp"
         android:layout_height="150dp"
         android:layout_marginEnd="10dp"
+        android:backgroundTint="#7A00BCD4"
         app:cardCornerRadius="15dp"
         app:layout_constraintBottom_toBottomOf="@+id/aftifactCardView"
         app:layout_constraintEnd_toEndOf="parent">
@@ -18,7 +19,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#7A00BCD4">
+            android:layout_margin="10dp">
 
 
             <TextView
@@ -35,8 +36,8 @@
                 android:id="@+id/maxRarArt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="35dp"
                 android:layout_margin="10dp"
+                android:layout_marginTop="35dp"
                 android:text="Max Rarity"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -57,9 +58,9 @@
 
         <ImageView
             android:id="@+id/hatImage"
-            android:background="@drawable/background_rarity_3_star"
             android:layout_width="150dp"
             android:layout_height="150dp"
+            android:background="@drawable/background_rarity_3_star"
             app:srcCompat="@drawable/circlet_loading" />
 
     </androidx.cardview.widget.CardView>
@@ -78,14 +79,15 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_margin="10dp">
 
             <TextView
                 android:id="@+id/PiesArtBonus2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_margin="10dp"
+                android:layout_marginTop="10dp"
                 android:text="TextView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -95,9 +97,9 @@
                 android:id="@+id/PiesArtBonus4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
                 android:layout_margin="10dp"
                 android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
                 android:text="TextView"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -109,8 +111,8 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="15dp"
         android:layout_margin="10dp"
+        app:cardCornerRadius="15dp"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -58,7 +58,7 @@ class WeaponFragment : Fragment() {
                 val jsonArr = JSONArray(res.body()!!.string())
 
                 var iterator = 0
-                val lst = ArrayList<Weapon>()
+//                val lst = ArrayList<Weapon>()
                 while (iterator < jsonArr.length()) {
                     getWeaponInfo(client,jsonArr.getString(iterator))
                     iterator++
@@ -110,7 +110,7 @@ class WeaponFragment : Fragment() {
 //                weapon.location = jsonObject.getString("location")
 //                weapon.ascensionMaterial = jsonObject.getString("location") Надо добавить сам материал!!
 
-                weapon.imageUrl = Uri.parse("$BASE_URL/weapons/${name.lowercase()}/icon")
+                weapon.imageUrl = Uri.parse("$BASE_URL/weapons/${name.lowercase().replace(" ","-").replace("'", "-")}/icon")
 
                 activity?.runOnUiThread {
                     val card = CustomWeaponCard(requireContext(), weapon)
