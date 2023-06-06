@@ -19,7 +19,7 @@
             android:layout_height="56dp"
             android:id="@+id/toolbar"
             android:elevation="4dp"
-            android:background="@color/purple_700"
+            android:background="@color/genshin_gray_blue_dark"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
 
             <FrameLayout
@@ -37,7 +37,7 @@
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_menu"
         app:menu="@menu/activity_main_drawer"
-        android:background="#889FF1"
+        android:background="@color/genshin_beige"
         />
 
 <!--    <ScrollView-->
