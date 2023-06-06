@@ -38,13 +38,8 @@ class CharactersFragment : Fragment() {
         return view
     }
 
-    fun addCharCard(ch: GenshinCharacter) {
-        val card = CustomCharacterCard(requireContext(), ch)
-        println(card)
-        characterContainer.addView(card)
-    }
 
-    fun run() {
+    private fun run() {
         val client = OkHttpClient()
 
         val request: Request = Request.Builder()
@@ -52,16 +47,15 @@ class CharactersFragment : Fragment() {
             .build()
 
         client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException?) {
+            override fun onFailure(call: Call, e: IOException) {
                 call.cancel()
             }
 
             @Throws(IOException::class)
-            override fun onResponse(call: Call?, res: Response) {
+            override fun onResponse(call: Call, res: Response) {
                 val jsonArr = JSONArray(res.body()!!.string())
 
                 var iterator = 0
-                val lst = ArrayList<GenshinCharacter>()
                 while (iterator < jsonArr.length()) {
                     getCharacterInfo(client, jsonArr.getString(iterator))
                     iterator++

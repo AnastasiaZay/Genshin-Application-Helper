@@ -84,8 +84,6 @@ class ArtifactProfileActivity : AppCompatActivity() {
                 artifact.name = jsonObject.getString("name")
                 artifact.max_rarity = jsonObject.getInt("max_rarity")
 
-                println(checkCrownArt(artifact.name.toString()).toString()+" yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy "+ artifact.name.toString().lowercase().replace(" ","-"))
-                println(artifact.name.toString()+" zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz")
                 if (checkCrownArt(artifact.name.toString())) {
                     artifact.flowerUri =
                         Uri.parse("$BASE_URL/artifacts/${name.lowercase()}/flower-of-life")
