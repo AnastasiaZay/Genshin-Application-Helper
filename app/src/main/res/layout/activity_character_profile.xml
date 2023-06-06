@@ -6,9 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".activities.CharacterProfileActivity">
 
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:id="@+id/skrollBgView"
+        android:layout_height="match_parent"
+        android:background="@drawable/anemo_bg">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

@@ -4,6 +4,7 @@ import android.app.ActionBar.LayoutParams
 import android.net.Uri
 import android.os.Bundle
 import android.widget.ImageView
+import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -25,6 +26,7 @@ class CharacterProfileActivity : AppCompatActivity() {
     lateinit var imageView: ImageView
     lateinit var cardsMaterials: FlexboxLayout
     lateinit var cardsMaterialsBooks: FlexboxLayout
+    lateinit var skrollBgView: ScrollView
 
     lateinit var name: String
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +41,7 @@ class CharacterProfileActivity : AppCompatActivity() {
         nameView.text = intent.extras!!.getString("name")
         name = intent.extras!!.getString("name")!!.lowercase().replace(" ", "-")
         val client = OkHttpClient()
+        skrollBgView = findViewById(R.id.skrollBgView)
 
         getCharacterInfo(client, name)
         getDropFromNormalBoss(client)
@@ -508,6 +511,19 @@ class CharacterProfileActivity : AppCompatActivity() {
                             4 -> R.drawable.background_rarity_4_star
                             5 -> R.drawable.background_rarity_5_star
                             else -> R.drawable.background_rarity_5a_star
+                        }
+                    )
+
+                    skrollBgView.setBackgroundResource(
+                        when(character.vision) {
+                            "Anemo" -> R.drawable.anemo_bg
+                            "Hydro" -> R.drawable.hydro_bg
+                            "Electro" -> R.drawable.electro_bg
+                            "Pyro" -> R.drawable.pyro_bg
+                            "Geo" -> R.drawable.geo_bg
+                            "Cryo" -> R.drawable.cryo_bg
+                            "Dendro" -> R.drawable.dendro_bg
+                            else -> R.drawable.anemo_bg
                         }
                     )
 
