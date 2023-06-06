@@ -8,6 +8,11 @@
     <string name="action_settings">Настройки</string>
     <string name="home">Главная</string>
     <string name="characters">Персонажи</string>
+    <string name="favorite_characters">Ваши любимые персонажи:</string>
+    <string name="follow_book_characters">Персонажи, книги для которых вы отслеживайте:</string>
+    <string name="my_characters">Персонажи, которые у вас есть:</string>
+    <string name="follow_book">Отслеживать книги</string>
+    <string name="choosen_character">Избранный персонаж</string>
     <string name="map">Карта</string>
     <string name="info">Инфо</string>
     <string name="weapon">Оружие</string>
@@ -21,6 +26,7 @@
     <string name="talents_priority">Приоритет прокачки</string>
     <string name="weekly_boss">Предмет с босса</string>
     <string name="artifacts">Артефакты</string>
+    <string name="artifacts_1_pies_bonus">Бонус комплекта из 1-го артефакта:</string>
     <string name="artifacts_2_pies_bonus">Бонус комплекта из 2-х артефактов:</string>
     <string name="artifacts_4_pies_bonus">Бонус комплекта из 4-х артефактов:</string>
     <string name="max_rarity">Максимальная редкость артефакта:</string>

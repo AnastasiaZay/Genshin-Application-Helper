@@ -7,6 +7,11 @@
     <string name="action_settings">Preferences</string>
     <string name="home">Home</string>
     <string name="characters">Characters</string>
+    <string name="favorite_characters">Your favorite characters:</string>
+    <string name="follow_book_characters">Characters, whom books you follow:</string>
+    <string name="my_characters">Characters you have:</string>
+    <string name="follow_book">Follow book</string>
+    <string name="choosen_character">Favorite character</string>
     <string name="map">Map</string>
     <string name="info">Info</string>
     <string name="weapon">Weapon</string>
@@ -20,6 +25,7 @@
     <string name="talents_priority">Talents Priority</string>
     <string name="weekly_boss">Weekly Boss Item</string>
     <string name="artifacts">Artifacts</string>
+    <string name="artifacts_1_pies_bonus">1 pies bonus:</string>
     <string name="artifacts_2_pies_bonus">2 pies bonus:</string>
     <string name="artifacts_4_pies_bonus">4 pies bonus:</string>
     <string name="max_rarity">Max artifact rarity:</string>

@@ -83,120 +83,250 @@ class ArtifactProfileActivity : AppCompatActivity() {
 
                 artifact.name = jsonObject.getString("name")
                 artifact.max_rarity = jsonObject.getInt("max_rarity")
-                artifact.flowerUri =
-                    Uri.parse("$BASE_URL/artifacts/${name.lowercase()}/flower-of-life")
-                artifact.gobletUri =
-                    Uri.parse("$BASE_URL/artifacts/${name.lowercase()}/goblet-of-eonothem")
-                artifact.plumeUri =
-                    Uri.parse("$BASE_URL/artifacts/${name.lowercase()}/plume-of-death")
-                artifact.sandsUri =
-                    Uri.parse("$BASE_URL/artifacts/${name.lowercase()}/sands-of-eon")
-                var n =
-                    Uri.parse("$BASE_URL/artifacts/${name.lowercase()}/circlet-of-logos")//корону загружаем
-                artifact.circletUri = n
-                artifact.piece_2_bonus = jsonObject.getString("2-piece_bonus")
-                artifact.piece_4_bonus = jsonObject.getString("4-piece_bonus")
+
+                println(checkCrownArt(artifact.name.toString()).toString()+" yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy "+ artifact.name.toString().lowercase().replace(" ","-"))
+                println(artifact.name.toString()+" zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz")
+                if (checkCrownArt(artifact.name.toString())) {
+                    artifact.flowerUri =
+                        Uri.parse("$BASE_URL/artifacts/${name.lowercase()}/flower-of-life")
+                    artifact.gobletUri =
+                        Uri.parse("$BASE_URL/artifacts/${name.lowercase()}/goblet-of-eonothem")
+                    artifact.plumeUri =
+                        Uri.parse("$BASE_URL/artifacts/${name.lowercase()}/plume-of-death")
+                    artifact.sandsUri =
+                        Uri.parse("$BASE_URL/artifacts/${name.lowercase()}/sands-of-eon")
+                    var n =
+                        Uri.parse("$BASE_URL/artifacts/${name.lowercase()}/circlet-of-logos")//корону загружаем
+                    artifact.circletUri = n
 
 
-                runOnUiThread {
+                    artifact.piece_2_bonus = jsonObject.getString("2-piece_bonus")
+                    artifact.piece_4_bonus = jsonObject.getString("4-piece_bonus")
 
-                    //Информация об артефакте
-                    text4View.text =
-                        applicationContext.getString(R.string.artifacts_4_pies_bonus) + " \n" + artifact.piece_4_bonus
-                    text2View.text =
-                        applicationContext.getString(R.string.artifacts_2_pies_bonus) + " \n" + artifact.piece_2_bonus
-                    rarView.text =
-                        applicationContext.getString(R.string.max_rarity) + " \n" + artifact.max_rarity
 
-                    Picasso.get().load(n).into(imageViewHat, object :
-                        com.squareup.picasso.Callback {
-                        override fun onSuccess() {}
 
-                        //Если картинки не загрузились
-                        override fun onError(e: Exception?) {
-                            Picasso.get()
-                                .load("https://static.wikia.nocookie.net/gensin-impact/images/5/59/Traveler_Icon.png/revision/latest")
-                                .into(imageViewHat)
+                    runOnUiThread {
+                        //Информация об артефакте
+                        text4View.text =
+                            applicationContext.getString(R.string.artifacts_4_pies_bonus) + " \n" + artifact.piece_4_bonus
+                        text2View.text =
+                            applicationContext.getString(R.string.artifacts_2_pies_bonus) + " \n" + artifact.piece_2_bonus
+                        rarView.text =
+                            applicationContext.getString(R.string.max_rarity) + " \n" + artifact.max_rarity
+
+                        Picasso.get().load(n).into(imageViewHat, object :
+                            com.squareup.picasso.Callback {
+                            override fun onSuccess() {}
+
+                            //Если картинки не загрузились
+                            override fun onError(e: Exception?) {
+                                Picasso.get()
+                                    .load("https://static.wikia.nocookie.net/gensin-impact/images/5/59/Traveler_Icon.png/revision/latest")
+                                    .into(imageViewHat)
+                            }
+                        })
+
+                        Picasso.get().load(artifact.flowerUri).into(imageFlower, object :
+                            com.squareup.picasso.Callback {
+                            override fun onSuccess() {}
+
+                            //Если картинки не загрузились
+                            override fun onError(e: Exception?) {
+                                Picasso.get()
+                                    .load("https://static.wikia.nocookie.net/gensin-impact/images/5/59/Traveler_Icon.png/revision/latest")
+                                    .into(imageFlower)
+                            }
+                        })
+                        Picasso.get().load(artifact.gobletUri).into(imageViewGobel, object :
+                            com.squareup.picasso.Callback {
+                            override fun onSuccess() {}
+
+                            //Если картинки не загрузились
+                            override fun onError(e: Exception?) {
+                                Picasso.get()
+                                    .load("https://static.wikia.nocookie.net/gensin-impact/images/5/59/Traveler_Icon.png/revision/latest")
+                                    .into(imageViewGobel)
+                            }
+                        })
+
+                        Picasso.get().load(artifact.plumeUri).into(imageViewPlume, object :
+                            com.squareup.picasso.Callback {
+                            override fun onSuccess() {}
+
+                            //Если картинки не загрузились
+                            override fun onError(e: Exception?) {
+                                Picasso.get()
+                                    .load("https://static.wikia.nocookie.net/gensin-impact/images/5/59/Traveler_Icon.png/revision/latest")
+                                    .into(imageViewPlume)
+                            }
+                        })
+
+                        Picasso.get().load(artifact.sandsUri).into(imageSand, object :
+                            com.squareup.picasso.Callback {
+                            override fun onSuccess() {}
+
+                            //Если картинки не загрузились
+                            override fun onError(e: Exception?) {
+                                Picasso.get()
+                                    .load("https://static.wikia.nocookie.net/gensin-impact/images/5/59/Traveler_Icon.png/revision/latest")
+                                    .into(imageSand)
+                            }
+                        })
+
+                        var backgroundPic: Int = when (artifact.max_rarity) {
+                            1 -> R.drawable.background_rarity_1_star
+                            2 -> R.drawable.background_rarity_2_star
+                            3 -> R.drawable.background_rarity_3_star
+                            4 -> R.drawable.background_rarity_4_star
+                            5 -> R.drawable.background_rarity_5_star
+                            else -> R.drawable.background_rarity_5a_star
                         }
-                    })
 
-                    Picasso.get().load(artifact.flowerUri).into(imageFlower, object :
-                        com.squareup.picasso.Callback {
-                        override fun onSuccess() {}
+                        imageSand.background = ContextCompat.getDrawable(
+                            applicationContext, backgroundPic
+                        )
+                        imageViewHat.background = ContextCompat.getDrawable(
+                            applicationContext, backgroundPic
+                        )
+                        imageViewPlume.background = ContextCompat.getDrawable(
+                            applicationContext, backgroundPic
+                        )
+                        imageViewGobel.background = ContextCompat.getDrawable(
+                            applicationContext, backgroundPic
+                        )
+                        imageFlower.background = ContextCompat.getDrawable(
+                            applicationContext, backgroundPic
+                        )
 
-                        //Если картинки не загрузились
-                        override fun onError(e: Exception?) {
-                            Picasso.get()
-                                .load("https://static.wikia.nocookie.net/gensin-impact/images/5/59/Traveler_Icon.png/revision/latest")
-                                .into(imageFlower)
-                        }
-                    })
-                    Picasso.get().load(artifact.gobletUri).into(imageViewGobel, object :
-                        com.squareup.picasso.Callback {
-                        override fun onSuccess() {}
-
-                        //Если картинки не загрузились
-                        override fun onError(e: Exception?) {
-                            Picasso.get()
-                                .load("https://static.wikia.nocookie.net/gensin-impact/images/5/59/Traveler_Icon.png/revision/latest")
-                                .into(imageViewGobel)
-                        }
-                    })
-
-                    Picasso.get().load(artifact.plumeUri).into(imageViewPlume, object :
-                        com.squareup.picasso.Callback {
-                        override fun onSuccess() {}
-
-                        //Если картинки не загрузились
-                        override fun onError(e: Exception?) {
-                            Picasso.get()
-                                .load("https://static.wikia.nocookie.net/gensin-impact/images/5/59/Traveler_Icon.png/revision/latest")
-                                .into(imageViewPlume)
-                        }
-                    })
-
-                    Picasso.get().load(artifact.sandsUri).into(imageSand, object :
-                        com.squareup.picasso.Callback {
-                        override fun onSuccess() {}
-
-                        //Если картинки не загрузились
-                        override fun onError(e: Exception?) {
-                            Picasso.get()
-                                .load("https://static.wikia.nocookie.net/gensin-impact/images/5/59/Traveler_Icon.png/revision/latest")
-                                .into(imageSand)
-                        }
-                    })
-
-                    var backgroundPic: Int = when (artifact.max_rarity) {
-                        1 -> R.drawable.background_rarity_1_star
-                        2 -> R.drawable.background_rarity_2_star
-                        3 -> R.drawable.background_rarity_3_star
-                        4 -> R.drawable.background_rarity_4_star
-                        5 -> R.drawable.background_rarity_5_star
-                        else -> R.drawable.background_rarity_5a_star
                     }
-
-                    imageSand.background = ContextCompat.getDrawable(
-                        applicationContext, backgroundPic
-                    )
-                    imageViewHat.background = ContextCompat.getDrawable(
-                        applicationContext, backgroundPic
-                    )
-                    imageViewPlume.background = ContextCompat.getDrawable(
-                        applicationContext, backgroundPic
-                    )
-                    imageViewGobel.background = ContextCompat.getDrawable(
-                        applicationContext, backgroundPic
-                    )
-                    imageFlower.background = ContextCompat.getDrawable(
-                        applicationContext, backgroundPic
-                    )
-
                 }
-            }
+                else {
+
+                        artifact.flowerUri =
+                            Uri.parse("$BASE_URL/artifacts/${name.lowercase()}/flower-of-life")
+                        artifact.gobletUri =
+                            Uri.parse("$BASE_URL/artifacts/${name.lowercase()}/goblet-of-eonothem")
+                        artifact.plumeUri =
+                            Uri.parse("$BASE_URL/artifacts/${name.lowercase()}/plume-of-death")
+                        artifact.sandsUri =
+                            Uri.parse("$BASE_URL/artifacts/${name.lowercase()}/sands-of-eon")
+                        var n =
+                            Uri.parse("$BASE_URL/artifacts/${name.lowercase()}/circlet-of-logos")//корону загружаем
+                        artifact.circletUri = n
+
+
+                        artifact.piece_2_bonus = jsonObject.getString("1-piece_bonus")
+
+                        artifact.piece_4_bonus = "Нет бонуса"
+
+                        runOnUiThread {
+                            //Информация об артефакте
+                            text4View.text =
+                                applicationContext.getString(R.string.artifacts_4_pies_bonus) + " \n" + artifact.piece_4_bonus
+                            text2View.text =
+                                applicationContext.getString(R.string.artifacts_1_pies_bonus) + " \n" + artifact.piece_2_bonus
+                            rarView.text =
+                                applicationContext.getString(R.string.max_rarity) + " \n" + artifact.max_rarity
+
+                            Picasso.get().load(n).into(imageViewHat, object :
+                                com.squareup.picasso.Callback {
+                                override fun onSuccess() {}
+
+                                //Если картинки не загрузились
+                                override fun onError(e: Exception?) {
+                                    Picasso.get()
+                                        .load("https://static.wikia.nocookie.net/gensin-impact/images/5/59/Traveler_Icon.png/revision/latest")
+                                        .into(imageViewHat)
+                                }
+                            })
+
+                            Picasso.get().load(artifact.flowerUri).into(imageFlower, object :
+                                com.squareup.picasso.Callback {
+                                override fun onSuccess() {}
+
+                                //Если картинки не загрузились
+                                override fun onError(e: Exception?) {
+                                    Picasso.get()
+                                        .load("https://static.wikia.nocookie.net/gensin-impact/images/5/59/Traveler_Icon.png/revision/latest")
+                                        .into(imageFlower)
+                                }
+                            })
+                            Picasso.get().load(artifact.gobletUri).into(imageViewGobel, object :
+                                com.squareup.picasso.Callback {
+                                override fun onSuccess() {}
+
+                                //Если картинки не загрузились
+                                override fun onError(e: Exception?) {
+                                    Picasso.get()
+                                        .load("https://static.wikia.nocookie.net/gensin-impact/images/5/59/Traveler_Icon.png/revision/latest")
+                                        .into(imageViewGobel)
+                                }
+                            })
+
+                            Picasso.get().load(artifact.plumeUri).into(imageViewPlume, object :
+                                com.squareup.picasso.Callback {
+                                override fun onSuccess() {}
+
+                                //Если картинки не загрузились
+                                override fun onError(e: Exception?) {
+                                    Picasso.get()
+                                        .load("https://static.wikia.nocookie.net/gensin-impact/images/5/59/Traveler_Icon.png/revision/latest")
+                                        .into(imageViewPlume)
+                                }
+                            })
+
+                            Picasso.get().load(artifact.sandsUri).into(imageSand, object :
+                                com.squareup.picasso.Callback {
+                                override fun onSuccess() {}
+
+                                //Если картинки не загрузились
+                                override fun onError(e: Exception?) {
+                                    Picasso.get()
+                                        .load("https://static.wikia.nocookie.net/gensin-impact/images/5/59/Traveler_Icon.png/revision/latest")
+                                        .into(imageSand)
+                                }
+                            })
+
+                            var backgroundPic: Int = when (artifact.max_rarity) {
+                                1 -> R.drawable.background_rarity_1_star
+                                2 -> R.drawable.background_rarity_2_star
+                                3 -> R.drawable.background_rarity_3_star
+                                4 -> R.drawable.background_rarity_4_star
+                                5 -> R.drawable.background_rarity_5_star
+                                else -> R.drawable.background_rarity_5a_star
+                            }
+
+                            imageSand.background = ContextCompat.getDrawable(
+                                applicationContext, backgroundPic
+                            )
+                            imageViewHat.background = ContextCompat.getDrawable(
+                                applicationContext, backgroundPic
+                            )
+                            imageViewPlume.background = ContextCompat.getDrawable(
+                                applicationContext, backgroundPic
+                            )
+                            imageViewGobel.background = ContextCompat.getDrawable(
+                                applicationContext, backgroundPic
+                            )
+                            imageFlower.background = ContextCompat.getDrawable(
+                                applicationContext, backgroundPic
+                            )
+                        }
+
+                    }
+                }
+
+
         })
+
 
     }
 
-
+    fun checkCrownArt(name: String): Boolean {
+        return !(name == "Sacrifieur to the Firmament"
+                || name == "Prayers to Springtime"
+                || name == "Prayers for Destiny"
+                ||name == "Prayers for Illumination"
+                ||name == "Prayers for Wisdom")
+    }
 }
