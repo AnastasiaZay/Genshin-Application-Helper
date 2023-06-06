@@ -118,9 +118,8 @@ class ArtifactProfileActivity : AppCompatActivity() {
 
                             //Если картинки не загрузились
                             override fun onError(e: Exception?) {
-                                Picasso.get()
-                                    .load("https://static.wikia.nocookie.net/gensin-impact/images/5/59/Traveler_Icon.png/revision/latest")
-                                    .into(imageViewHat)
+                                imageViewHat.setImageResource(R.drawable.no_pic)
+
                             }
                         })
 
@@ -130,9 +129,7 @@ class ArtifactProfileActivity : AppCompatActivity() {
 
                             //Если картинки не загрузились
                             override fun onError(e: Exception?) {
-                                Picasso.get()
-                                    .load("https://static.wikia.nocookie.net/gensin-impact/images/5/59/Traveler_Icon.png/revision/latest")
-                                    .into(imageFlower)
+                                imageViewHat.setImageResource(R.drawable.no_pic)
                             }
                         })
                         Picasso.get().load(artifact.gobletUri).into(imageViewGobel, object :
@@ -141,9 +138,7 @@ class ArtifactProfileActivity : AppCompatActivity() {
 
                             //Если картинки не загрузились
                             override fun onError(e: Exception?) {
-                                Picasso.get()
-                                    .load("https://static.wikia.nocookie.net/gensin-impact/images/5/59/Traveler_Icon.png/revision/latest")
-                                    .into(imageViewGobel)
+                                imageViewHat.setImageResource(R.drawable.no_pic)
                             }
                         })
 
@@ -165,9 +160,7 @@ class ArtifactProfileActivity : AppCompatActivity() {
 
                             //Если картинки не загрузились
                             override fun onError(e: Exception?) {
-                                Picasso.get()
-                                    .load("https://static.wikia.nocookie.net/gensin-impact/images/5/59/Traveler_Icon.png/revision/latest")
-                                    .into(imageSand)
+                                imageViewHat.setImageResource(R.drawable.no_pic)
                             }
                         })
 
@@ -232,9 +225,7 @@ class ArtifactProfileActivity : AppCompatActivity() {
 
                                 //Если картинки не загрузились
                                 override fun onError(e: Exception?) {
-                                    Picasso.get()
-                                        .load("https://static.wikia.nocookie.net/gensin-impact/images/5/59/Traveler_Icon.png/revision/latest")
-                                        .into(imageViewHat)
+                                    imageViewHat.setImageResource(R.drawable.no_pic)
                                 }
                             })
 
@@ -244,9 +235,7 @@ class ArtifactProfileActivity : AppCompatActivity() {
 
                                 //Если картинки не загрузились
                                 override fun onError(e: Exception?) {
-                                    Picasso.get()
-                                        .load("https://static.wikia.nocookie.net/gensin-impact/images/5/59/Traveler_Icon.png/revision/latest")
-                                        .into(imageFlower)
+                                    imageViewHat.setImageResource(R.drawable.no_pic)
                                 }
                             })
                             Picasso.get().load(artifact.gobletUri).into(imageViewGobel, object :
@@ -255,9 +244,7 @@ class ArtifactProfileActivity : AppCompatActivity() {
 
                                 //Если картинки не загрузились
                                 override fun onError(e: Exception?) {
-                                    Picasso.get()
-                                        .load("https://static.wikia.nocookie.net/gensin-impact/images/5/59/Traveler_Icon.png/revision/latest")
-                                        .into(imageViewGobel)
+                                    imageViewHat.setImageResource(R.drawable.no_pic)
                                 }
                             })
 
@@ -267,9 +254,7 @@ class ArtifactProfileActivity : AppCompatActivity() {
 
                                 //Если картинки не загрузились
                                 override fun onError(e: Exception?) {
-                                    Picasso.get()
-                                        .load("https://static.wikia.nocookie.net/gensin-impact/images/5/59/Traveler_Icon.png/revision/latest")
-                                        .into(imageViewPlume)
+                                    imageViewHat.setImageResource(R.drawable.no_pic)
                                 }
                             })
 
@@ -279,9 +264,7 @@ class ArtifactProfileActivity : AppCompatActivity() {
 
                                 //Если картинки не загрузились
                                 override fun onError(e: Exception?) {
-                                    Picasso.get()
-                                        .load("https://static.wikia.nocookie.net/gensin-impact/images/5/59/Traveler_Icon.png/revision/latest")
-                                        .into(imageSand)
+                                    imageViewHat.setImageResource(R.drawable.no_pic)
                                 }
                             })
 

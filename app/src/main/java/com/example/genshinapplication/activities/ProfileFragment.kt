@@ -215,7 +215,7 @@ class ProfileFragment : Fragment() {
                 activity?.runOnUiThread {
                     val card = CustomCharacterCard(requireContext(), character)
                     println(card)
-                    favoriteCharactersContainer.addView(card)
+                    followCharactersContainer.addView(card)
                 }
 
             }
@@ -263,34 +263,34 @@ class ProfileFragment : Fragment() {
                 activity?.runOnUiThread {
                     val card = CustomCharacterCard(requireContext(), character)
                     println(card)
-                    favoriteCharactersContainer.addView(card)
+                    myCharactersContainer.addView(card)
                 }
 
             }
         })
     }
-    private fun dbDoing() {
-        mDBHelper = MyDatabaseHelper(this.requireContext())
-        try {
-            mDBHelper!!.updateDataBase()
-        } catch (mIOException: IOException) {
-            throw Error("UnableToUpdateDatabase")
-        }
-        mDb = try {
-            mDBHelper!!.writableDatabase
-        } catch (mSQLException: SQLException) {
-            throw mSQLException
-        }
-        var product = ""
-        val cursor = mDb!!.rawQuery("SELECT * FROM CHARACTERS_TABLE_NAME", null)
-        cursor.moveToFirst()
-        while (!cursor.isAfterLast) {
-            product += cursor.getString(1) + " | "
-            cursor.moveToNext()
-        }
-        cursor.close()
-        textView!!.text = product
-    }
+//    private fun dbDoing() {
+//        mDBHelper = MyDatabaseHelper(this.requireContext())
+//        try {
+//            mDBHelper!!.updateDataBase()
+//        } catch (mIOException: IOException) {
+//            throw Error("UnableToUpdateDatabase")
+//        }
+//        mDb = try {
+//            mDBHelper!!.writableDatabase
+//        } catch (mSQLException: SQLException) {
+//            throw mSQLException
+//        }
+//        var product = ""
+//        val cursor = mDb!!.rawQuery("SELECT * FROM CHARACTERS_TABLE_NAME", null)
+//        cursor.moveToFirst()
+//        while (!cursor.isAfterLast) {
+//            product += cursor.getString(1) + " | "
+//            cursor.moveToNext()
+//        }
+//        cursor.close()
+//        textView!!.text = product
+//    }
 
     fun getArrayFavoriteCharacters(): ArrayList<String>? {
         mDBHelper = MyDatabaseHelper(this.requireContext())
