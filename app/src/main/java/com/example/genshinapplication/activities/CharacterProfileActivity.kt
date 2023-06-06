@@ -26,12 +26,17 @@ import java.lang.Exception
 class CharacterProfileActivity : AppCompatActivity() {
     lateinit var imageView: ImageView
     lateinit var cardsMaterials: FlexboxLayout
+    lateinit var cardsMaterialsBooks: FlexboxLayout
+
     lateinit var name: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_character_profile)
         imageView = findViewById(R.id.imageView)
+        //Для всего, кроме книг
         cardsMaterials = findViewById(R.id.cardsMaterials)
+        //Для книг
+        cardsMaterialsBooks = findViewById(R.id.cardsMaterialsBooks)
         val nameView = findViewById<TextView>(R.id.nameView)
         nameView.text = intent.extras!!.getString("name")
         name = intent.extras!!.getString("name")!!.lowercase().replace(" ", "-")
@@ -44,11 +49,18 @@ class CharacterProfileActivity : AppCompatActivity() {
 //        getDropGems(client)
         getDropFromEnemy(client)
         getDropBooks(client)
+//        getDropFromWorld(client)
+
     }
 
     fun createDropCard(dropName: String, dropImage: Uri, dropRarity: Int) {
         val card = CustomMaterialCard(applicationContext, dropName, dropImage, dropRarity)
         cardsMaterials.addView(card)
+    }
+
+    fun createDropCardBooks(dropName: String, dropImage: Uri, dropRarity: Int) {
+        val card = CustomMaterialCard(applicationContext, dropName, dropImage, dropRarity)
+        cardsMaterialsBooks.addView(card)
     }
 
     //Ща пойдем по массиву дропа в поисках имени персонажа
@@ -88,7 +100,7 @@ class CharacterProfileActivity : AppCompatActivity() {
                                 val thisItem =
                                     itemsArr.getJSONObject(itemI)  // Сам предмет, конкретный, типо Книжки "Учения о свободе"
                                 runOnUiThread {
-                                    createDropCard(
+                                    createDropCardBooks(
                                         thisItem.getString("name"),
                                         Uri.parse(
                                             "$BASE_URL/materials/talent-book/${
@@ -113,7 +125,7 @@ class CharacterProfileActivity : AppCompatActivity() {
                                 weekDay.text =
                                     jObject.getJSONArray("availability").toString().drop(1)
                                         .dropLast(1)
-                                cardsMaterials.addView(weekDay)
+                                cardsMaterialsBooks.addView(weekDay)
                             }
                         }
                         i++
@@ -402,7 +414,71 @@ class CharacterProfileActivity : AppCompatActivity() {
         })
     }
 
+    /* Надо с этой функцией поработать
+    private fun getDropFromWorld(client: OkHttpClient){
+        val request = Request
+            .Builder()
+            .url("$BASE_URL/materials/local-specialties")
+            .build()
 
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                throw e
+            }
+
+            override fun onResponse(call: Call, res: Response) {
+                if (!res.isSuccessful)
+                    throw IOException("Твой код не работает. Ошибка вот = ${res.code()}, ${res.message()}")
+                parse(res.body()!!.string())
+
+            }
+
+            //Тут надо получить из дропа имя персонажа, тк у персонажа нет инфы о дропе
+            private fun parse(response: String) {
+                val jsonObject = JSONObject(response)
+                val keys = jsonObject.keys()
+                while (keys.hasNext()) {
+                    val key = keys.next()
+                    val jObject = jsonObject.getJSONObject(key)
+                    val dropName = jObject.getString("name")
+                    val arr = jObject.getJSONArray("characters")
+                    var i = 0
+
+                    while (i < arr.length()) { //Идем по массиву персонажей
+                        if (name == "xinyan") {
+                            name = "Xinyan"
+                        }
+                        if (arr[i].toString() == checkName(name)) {
+
+                            runOnUiThread {
+
+                                createDropCard(
+                                    dropName,
+                                    Uri.parse(
+                                        "$BASE_URL/materials/local-specialties/${
+                                            jObject.getString("id") //Надо получить заголовок
+
+                                        }"
+                                    ),
+                                    1 //У такого дропа редкость всегда 1
+                                )
+
+
+                            }
+
+                        }
+                        i++
+                        if (name == "Xinyan") {
+                            name = "xinyan" //У Синь Янь проблемы с именем :(
+                        }
+                    }
+                }
+
+            }
+        })
+    }
+
+     */
     private fun getCharacterInfo(
         client: OkHttpClient,
         name: String

@@ -39,13 +39,13 @@ class WeaponProfileActivity : AppCompatActivity() {
         nameView.text = intent.extras!!.getString("name")
         name = intent.extras!!.getString("name")!!.lowercase().replace(" ", "-").replace("'", "-").replace("'", "-").replace("--", "-")
         val client = OkHttpClient()
-        baseAttack = findViewById<TextView>(R.id.baseAttackView)
-        subStat = findViewById<TextView>(R.id.subStatView)
-        passiveName = findViewById<TextView>(R.id.passiveNameView)
-        location = findViewById<TextView>(R.id.locationView)
-        passiveDesc = findViewById<TextView>(R.id.passiveDescView)
+        baseAttack = findViewById(R.id.baseAttackView)
+        subStat = findViewById(R.id.subStatView)
+        passiveName = findViewById(R.id.passiveNameView)
+        location = findViewById(R.id.locationView)
+        passiveDesc = findViewById(R.id.passiveDescView)
         type = findViewById<TextView>(R.id.weaponView)
-        
+
         getWeaponInfo(client, name)}
 
     private fun getWeaponInfo(
