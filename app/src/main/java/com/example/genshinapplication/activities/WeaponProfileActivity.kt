@@ -1,4 +1,4 @@
-package com.example.genshinapplication
+package com.example.genshinapplication.activities
 
 import android.net.Uri
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.example.genshinapplication.R
 import com.example.genshinapplication.helpers.BASE_URL
 import com.example.genshinapplication.models.Weapon
 import com.squareup.picasso.Picasso
@@ -86,7 +87,7 @@ class WeaponProfileActivity : AppCompatActivity() {
                 weapon.type = jsonObject.getString("type")
                 weapon.subStat = jsonObject.getString("subStat")
                 weapon.passiveName = jsonObject.getString("passiveName")
-                weapon.ascensionMaterial = jsonObject.getString("ascensionMaterial")
+//                weapon.ascensionMaterial = jsonObject.getString("ascensionMaterial")
                 weapon.rarity = jsonObject.getInt("rarity")
                 weapon.location = jsonObject.getString("location")
 //                weapon.ascensionMaterial = jsonObject.getString("location") Надо добавить сам материал!!

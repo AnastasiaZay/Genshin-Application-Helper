@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import com.example.genshinapplication.R
-import com.example.genshinapplication.WeaponProfileActivity
+import com.example.genshinapplication.activities.WeaponProfileActivity
 import com.example.genshinapplication.models.Weapon
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
@@ -40,9 +40,7 @@ class CustomWeaponCard : CardView {
 
             //Если картинки не загрузились
             override fun onError(e: Exception?) {
-                Picasso.get()
-                    .load("https://static.wikia.nocookie.net/gensin-impact/images/5/59/Traveler_Icon.png/revision/latest")
-                    .into(weaponImageView)
+                weaponImageView.setImageResource(R.drawable.no_pic_no_bg)
             }
         })
 

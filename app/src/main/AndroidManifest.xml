@@ -24,7 +24,7 @@
             android:name=".activities.ArtifactProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".WeaponProfileActivity"
+            android:name=".activities.WeaponProfileActivity"
             android:exported="false" />
         <activity
             android:name=".activities.CharacterProfileActivity"

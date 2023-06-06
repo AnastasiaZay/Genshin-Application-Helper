@@ -39,9 +39,7 @@ class CustomArtifactCard : CardView {
 
             //Если картинки не загрузились
             override fun onError(e: Exception?) {
-                Picasso.get()
-                    .load("https://static.wikia.nocookie.net/gensin-impact/images/5/59/Traveler_Icon.png/revision/latest")
-                    .into(weaponImageView)
+                weaponImageView.setImageResource(R.drawable.no_pic_no_bg)
             }
         })
 
