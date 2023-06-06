@@ -1,5 +1,7 @@
 package com.example.genshinapplication.activities
 
+import android.database.SQLException
+import android.database.sqlite.SQLiteDatabase
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
@@ -7,12 +9,15 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.genshinapplication.R
+import com.example.genshinapplication.helpers.MyDatabaseHelper
 import com.google.android.material.navigation.NavigationView
+import java.io.IOException
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var toolbar: androidx.appcompat.widget.Toolbar
-
+    private var mDBHelper: MyDatabaseHelper? = null
+    private var mDb: SQLiteDatabase? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -46,6 +51,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         toolbar.title = "Личный кабинет"
         navigationView.setCheckedItem( R.id.nav_mainActivity) //nav_home
+
+
+        mDBHelper = MyDatabaseHelper(this)
+
+        try {
+            mDBHelper!!.updateDataBase()
+        } catch (mIOException: IOException) {
+            throw java.lang.Error("UnableToUpdateDatabase")
+        }
+
+        mDb = try {
+            mDBHelper!!.writableDatabase
+        } catch (mSQLException: SQLException) {
+            throw mSQLException
+        }
+        println(mDb.toString()+" fffffffffffffffffffffffggggggggggghhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

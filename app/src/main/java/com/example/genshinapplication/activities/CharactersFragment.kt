@@ -7,8 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.genshinapplication.cards.CustomCharacterCard
 import com.example.genshinapplication.R
+import com.example.genshinapplication.cards.CustomCharacterCard
 import com.example.genshinapplication.helpers.BASE_URL
 import com.example.genshinapplication.models.GenshinCharacter
 import com.google.android.flexbox.FlexboxLayout
@@ -37,13 +37,14 @@ class CharactersFragment : Fragment() {
 
         return view
     }
-        fun addCharCard(ch: GenshinCharacter) {
-            val card = CustomCharacterCard( requireContext(), ch )
-            println( card )
-            characterContainer.addView( card )
-        }
 
-    fun run(){
+    fun addCharCard(ch: GenshinCharacter) {
+        val card = CustomCharacterCard(requireContext(), ch)
+        println(card)
+        characterContainer.addView(card)
+    }
+
+    fun run() {
         val client = OkHttpClient()
 
         val request: Request = Request.Builder()
@@ -62,7 +63,7 @@ class CharactersFragment : Fragment() {
                 var iterator = 0
                 val lst = ArrayList<GenshinCharacter>()
                 while (iterator < jsonArr.length()) {
-                    getCharacterInfo(client,jsonArr.getString(iterator))
+                    getCharacterInfo(client, jsonArr.getString(iterator))
                     iterator++
                 }
 
@@ -75,7 +76,11 @@ class CharactersFragment : Fragment() {
         super.onAttach(context)
         run()
     }
-    fun getCharacterInfo(client:OkHttpClient, name: String) {  //https://api.genshin.dev/characters/имя-персонажа/icon  - картинки персонажа  (в частности, иконка)
+
+    fun getCharacterInfo(
+        client: OkHttpClient,
+        name: String
+    ) {  //https://api.genshin.dev/characters/имя-персонажа/icon  - картинки персонажа  (в частности, иконка)
         val request = Request
             .Builder()
             // Имя персов пиши ЧЕРЕЗ-ТИРЕ
@@ -99,7 +104,7 @@ class CharactersFragment : Fragment() {
 
             }
 
-            private fun parse(response: String){
+            private fun parse(response: String) {
                 val jsonObject = JSONObject(response)
 
                 character.name = jsonObject.getString("name")
@@ -111,7 +116,8 @@ class CharactersFragment : Fragment() {
                 character.rarity = jsonObject.getInt("rarity")
 //                val dat = jsonObject.getString("birthday").split("-")
 //                character.birthday = LocalDate.of(0, dat[1].toInt(), dat[2].toInt() )
-                character.characterUri = Uri.parse("$BASE_URL/characters/${name.lowercase()}/icon-big")
+                character.characterUri =
+                    Uri.parse("$BASE_URL/characters/${name.lowercase()}/icon-big")
 
 
 

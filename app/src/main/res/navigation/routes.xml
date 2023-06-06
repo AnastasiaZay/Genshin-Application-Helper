@@ -37,11 +37,6 @@
         android:name="com.example.genshinapplication.activities.WeaponFragment"
         android:label="fragment_weapon"
         tools:layout="@layout/fragment_weapon" />
-    <fragment
-        android:id="@+id/profileActivity"
-        android:name="com.example.genshinapplication.ProfileActivity"
-        android:label="activity_profile"
-        tools:layout="@layout/activity_profile" />
     <activity
         android:id="@+id/artifactProfileActivity"
         android:name="com.example.genshinapplication.activities.ArtifactProfileActivity"
