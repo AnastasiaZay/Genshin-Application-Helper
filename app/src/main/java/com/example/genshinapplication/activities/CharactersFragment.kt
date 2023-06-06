@@ -106,16 +106,10 @@ class CharactersFragment : Fragment() {
 
             private fun parse(response: String) {
                 val jsonObject = JSONObject(response)
-
                 character.name = jsonObject.getString("name")
-                //character.title = jsonObject.getString("title")
                 character.vision = jsonObject.getString("vision")
                 character.weapon = jsonObject.getString("weapon")
-//                character.nation = jsonObject.getString("nation")
-//                character.description = jsonObject.getString("description")
                 character.rarity = jsonObject.getInt("rarity")
-//                val dat = jsonObject.getString("birthday").split("-")
-//                character.birthday = LocalDate.of(0, dat[1].toInt(), dat[2].toInt() )
                 character.characterUri =
                     Uri.parse("$BASE_URL/characters/${name.lowercase()}/icon-big")
 

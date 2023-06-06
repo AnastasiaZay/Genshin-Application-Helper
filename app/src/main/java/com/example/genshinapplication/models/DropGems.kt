@@ -2,7 +2,7 @@ package com.example.genshinapplication.models
 
 import android.net.Uri
 
-class DropGems{
+class DropGems {
 
     //Самоцвет для возвышения + склянки Путешественника
     //https://api.genshin.dev/materials/character-ascension
@@ -10,7 +10,7 @@ class DropGems{
     var vision: String? = null
     var pieceOfGem: List<PieceOfGem>? = null
 
-    class PieceOfGem :IDrop{
+    class PieceOfGem : IDrop {
         var id: String? = null //Название дропа с тире
         var name: String? = null //Название дропа, но без тире
         var sourcees: List<String>? = null //Откуда добыть
@@ -23,6 +23,7 @@ class DropGems{
         override fun getDropUri(): Uri? {
             return imageUrl
         }
+
         override fun getDropRarity(): Int? {
             return rarity
         }

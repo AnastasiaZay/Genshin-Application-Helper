@@ -2,7 +2,7 @@ package com.example.genshinapplication.models
 
 import android.net.Uri
 
-class DropFromWeeklyBoss :IDrop{
+class DropFromWeeklyBoss : IDrop {
 
     //Дроп с еженедельных боссов (таланты персонажей)
     //https://api.genshin.dev/materials/talent-boss
@@ -20,6 +20,7 @@ class DropFromWeeklyBoss :IDrop{
     override fun getDropUri(): Uri? {
         return imageUrl
     }
+
     override fun getDropRarity(): Int? {
         return 5
     }

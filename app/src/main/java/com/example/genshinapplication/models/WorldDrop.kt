@@ -2,7 +2,7 @@ package com.example.genshinapplication.models
 
 import android.net.Uri
 
-class WorldDrop:IDrop {
+class WorldDrop : IDrop {
 
     //Диковинки мира
     //https://api.genshin.dev/materials/local-specialties

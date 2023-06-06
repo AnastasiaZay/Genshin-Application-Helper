@@ -9,13 +9,10 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import com.example.genshinapplication.R
-import com.example.genshinapplication.WeaponProfileActivity
 import com.example.genshinapplication.activities.ArtifactProfileActivity
 import com.example.genshinapplication.models.Artifact
-import com.example.genshinapplication.models.Weapon
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
-import java.lang.Exception
 
 class CustomArtifactCard : CardView {
 
@@ -33,10 +30,9 @@ class CustomArtifactCard : CardView {
         val inflater: LayoutInflater = context
             .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         inflater.inflate(R.layout.artifact_card, this, true)
-
         val weaponImageView = findViewById<ImageView>(R.id.artifactImageView)
-//        characterImageView.setImageURI(characterIcon)
         //https://static.wikia.nocookie.net/gensin-impact/images/5/59/Traveler_Icon.png/revision/latest
+
         Picasso.get().load(circletUri).into(weaponImageView, object : Callback {
 
             override fun onSuccess() {}
@@ -67,8 +63,6 @@ class CustomArtifactCard : CardView {
             name.take(9) + "..."
         else
             name
-
-
 
         this.setOnClickListener {
             val i = Intent(context, ArtifactProfileActivity::class.java)

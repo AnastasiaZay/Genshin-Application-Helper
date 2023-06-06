@@ -18,8 +18,6 @@ class ProfileFragment : Fragment() {
     private var mDBHelper: MyDatabaseHelper? = null
     private var mDb: SQLiteDatabase? = null
 
-
-    //    testView
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,12 +29,8 @@ class ProfileFragment : Fragment() {
         )
 
         textView = view.findViewById(R.id.textView)
-//        super.onCreate(savedInstanceState)
-//        setContentView(R.layout.fragment_profile)
 
         dbDoing()
-
-        // Найдем компоненты в XML разметке
 
 
 //        // Пропишем обработчик клика кнопки
@@ -53,19 +47,10 @@ class ProfileFragment : Fragment() {
 //        }
 
 
-//    override fun onCreateView(
-//        inflater: LayoutInflater, container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View? {
-//        // Inflate the layout for this fragment
-//
-//        return inflater.inflate(R.layout.fragment_profile, container, false)
-//
-//    }
         return view
     }
 
-    private fun dbDoing(){
+    private fun dbDoing() {
         mDBHelper = MyDatabaseHelper(this.requireContext())
         try {
             mDBHelper!!.updateDataBase()
@@ -78,13 +63,13 @@ class ProfileFragment : Fragment() {
             throw mSQLException
         }
         var product = ""
-            val cursor = mDb!!.rawQuery("SELECT * FROM CHARACTERS_TABLE_NAME", null)
-            cursor.moveToFirst()
-            while (!cursor.isAfterLast) {
-                product += cursor.getString(1) + " | "
-                cursor.moveToNext()
-            }
-            cursor.close()
-            textView!!.text = product
+        val cursor = mDb!!.rawQuery("SELECT * FROM CHARACTERS_TABLE_NAME", null)
+        cursor.moveToFirst()
+        while (!cursor.isAfterLast) {
+            product += cursor.getString(1) + " | "
+            cursor.moveToNext()
+        }
+        cursor.close()
+        textView!!.text = product
     }
 }

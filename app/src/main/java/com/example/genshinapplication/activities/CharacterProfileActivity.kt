@@ -2,10 +2,10 @@ package com.example.genshinapplication.activities
 
 import android.app.ActionBar.LayoutParams
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.genshinapplication.R
 import com.example.genshinapplication.cards.CustomMaterialCard
@@ -20,9 +20,7 @@ import okhttp3.Request
 import okhttp3.Response
 import org.json.JSONObject
 import java.io.IOException
-import java.lang.Exception
 
-//cardsMaterials
 class CharacterProfileActivity : AppCompatActivity() {
     lateinit var imageView: ImageView
     lateinit var cardsMaterials: FlexboxLayout
@@ -43,7 +41,6 @@ class CharacterProfileActivity : AppCompatActivity() {
         val client = OkHttpClient()
 
         getCharacterInfo(client, name)
-//Порядок как в стеке
         getDropFromNormalBoss(client)
         getDropFromWeeklyBoss(client)
 //        getDropGems(client)
@@ -187,16 +184,6 @@ class CharacterProfileActivity : AppCompatActivity() {
 
 
                             }
-//                            runOnUiThread {
-//                                //Дни недели вставляем
-//                                val weekDay = TextView(applicationContext)
-//                                weekDay.layoutParams = LayoutParams(
-//                                    LayoutParams.MATCH_PARENT,
-//                                    LayoutParams.WRAP_CONTENT
-//                                )
-//                                weekDay.text = jObject.getJSONArray("availability").toString().drop(1 ).dropLast(1)
-//                                cardsMaterials.addView(weekDay)
-//                            }
                         }
                         i++
                         if (name == "Xinyan") {
@@ -252,16 +239,6 @@ class CharacterProfileActivity : AppCompatActivity() {
 
 
                             }
-//                            runOnUiThread {
-//                                //Дни недели вставляем
-//                                val weekDay = TextView(applicationContext)
-//                                weekDay.layoutParams = LayoutParams(
-//                                    LayoutParams.MATCH_PARENT,
-//                                    LayoutParams.WRAP_CONTENT
-//                                )
-//                                weekDay.text = jObject.getJSONArray("availability").toString().drop(1 ).dropLast(1)
-//                                cardsMaterials.addView(weekDay)
-//                            }
                         }
                         i++
                     }
@@ -392,18 +369,6 @@ class CharacterProfileActivity : AppCompatActivity() {
                                     }
                                     itemI++
                                 }
-//                            runOnUiThread {
-//                                //Дни недели вставляем
-//                                val weekDay = TextView(applicationContext)
-//                                weekDay.layoutParams = LayoutParams(
-//                                    LayoutParams.MATCH_PARENT,
-//                                    LayoutParams.WRAP_CONTENT
-//                                )
-//                                weekDay.text =
-//                                    jObject.getJSONArray("availability").toString().drop(1)
-//                                        .dropLast(1)
-//                                cardsMaterials.addView(weekDay)
-//                            }
                             }
                             i++
                         }
@@ -511,9 +476,6 @@ class CharacterProfileActivity : AppCompatActivity() {
                 val jsonObject = JSONObject(response)
 
                 character.name = jsonObject.getString("name")
-
-//                character.name = nameForPic
-                //character.title = jsonObject.getString("title")
                 character.vision = jsonObject.getString("vision")
                 character.weapon = jsonObject.getString("weapon")
                 character.nation = jsonObject.getString("nation")
@@ -521,11 +483,6 @@ class CharacterProfileActivity : AppCompatActivity() {
                 character.rarity = jsonObject.getInt("rarity")
 //                val dat = jsonObject.getString("birthday").split("-")
 //                character.birthday = LocalDate.of(0, dat[1].toInt(), dat[2].toInt() )
-
-
-//                println(name.toString().lowercase()+ " ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff")
-
-
                 var n = Uri.parse("$BASE_URL/characters/$nameForPic/icon-big")
                 character.characterUri = n
                 println(n)
@@ -606,7 +563,6 @@ class CharacterProfileActivity : AppCompatActivity() {
             "raiden-shogun" -> "raiden"
             else -> name
         }
-        println(nameNew + " tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt")
         return nameNew
     }
 }

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
 
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_margin="10dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="10dp"
     app:cardCornerRadius="20dp"
     app:strokeColor="@color/black"
     app:strokeWidth="8dp">
@@ -20,7 +19,7 @@
             android:id="@+id/materialImageView"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:background="@drawable/background_rarity_3_star"
+            android:background="@drawable/background_rarity_5a_star"
             android:src="@drawable/boss_loading"
             app:layout_constraintBottom_toTopOf="@+id/nameView"
             app:layout_constraintEnd_toEndOf="parent"

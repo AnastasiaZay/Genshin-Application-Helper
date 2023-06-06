@@ -11,7 +11,6 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:orientation="vertical"
             android:id="@+id/homeCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -20,6 +19,7 @@
             android:layout_marginEnd="10dp"
             android:backgroundTint="#A100BCD4"
             android:minHeight="50dp"
+            android:orientation="vertical"
             app:cardCornerRadius="20dp"></LinearLayout>
     </ScrollView>
 

@@ -1,10 +1,10 @@
 package com.example.genshinapplication.activities
 
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.genshinapplication.R
 import com.example.genshinapplication.helpers.BASE_URL
@@ -17,7 +17,6 @@ import okhttp3.Request
 import okhttp3.Response
 import org.json.JSONObject
 import java.io.IOException
-import java.lang.Exception
 
 //aftifactCardView
 class ArtifactProfileActivity : AppCompatActivity() {

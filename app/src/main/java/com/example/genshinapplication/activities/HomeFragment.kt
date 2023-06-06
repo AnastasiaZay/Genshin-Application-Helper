@@ -2,11 +2,11 @@ package com.example.genshinapplication.activities
 
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.fragment.app.Fragment
 import com.example.genshinapplication.R
 import com.example.genshinapplication.cards.CustomHomeCard
 import com.example.genshinapplication.helpers.BASE_URL
@@ -20,20 +20,16 @@ import org.json.JSONObject
 import java.io.IOException
 import java.time.LocalDate
 
-//homeCard
-//dropImageView
 class HomeFragment : Fragment() {
     lateinit var homeCard: LinearLayout
     val todayDayOfWeek = LocalDate.now().dayOfWeek.name.lowercase()
 
-    //    lateinit var cardsMaterials: FlexboxLayout
     override fun onCreateView(
 
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
-        // Inflate the layout for this fragment
         homeCard = view.findViewById(R.id.homeCard)!!
         getBookInfo(client = OkHttpClient())
         return view
@@ -42,7 +38,6 @@ class HomeFragment : Fragment() {
     fun createHomeCard(dropUri: Uri, characters: JSONArray) {
 //        val card = CustomHomeCard(requireContext(), dropUri, characters)
 //        homeCard.addView(card)
-
     }
 
     private fun getBookInfo(client: OkHttpClient) {

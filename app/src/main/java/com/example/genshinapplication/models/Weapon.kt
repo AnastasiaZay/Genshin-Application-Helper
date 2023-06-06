@@ -1,7 +1,6 @@
 package com.example.genshinapplication.models
 
 import android.net.Uri
-import java.time.LocalDate
 
 class Weapon {
 
@@ -17,8 +16,10 @@ class Weapon {
 
     //Получение
     var location: String? = null
+
     //Материал из мира
     var ascensionMaterial: String? = null
+
     //Материал из подземелья
     var ascensionDomainMaterial: String? = null
 

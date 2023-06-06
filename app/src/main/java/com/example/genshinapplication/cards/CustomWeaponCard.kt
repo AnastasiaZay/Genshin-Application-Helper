@@ -13,7 +13,6 @@ import com.example.genshinapplication.WeaponProfileActivity
 import com.example.genshinapplication.models.Weapon
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
-import java.lang.Exception
 
 class CustomWeaponCard : CardView {
 
@@ -33,7 +32,7 @@ class CustomWeaponCard : CardView {
         inflater.inflate(R.layout.weapon_card, this, true)
 
         val weaponImageView = findViewById<ImageView>(R.id.weaponImageView)
-//        characterImageView.setImageURI(characterIcon)
+
         //https://static.wikia.nocookie.net/gensin-impact/images/5/59/Traveler_Icon.png/revision/latest
         Picasso.get().load(imageUrl).into(weaponImageView, object : Callback {
 

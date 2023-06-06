@@ -2,7 +2,7 @@ package com.example.genshinapplication.models
 
 import android.net.Uri
 
-class Drop() :IDrop{
+class Drop() : IDrop {
 
     var name: String? = null
     var id: String? = null
@@ -20,6 +20,5 @@ class Drop() :IDrop{
         return rarity
     }
 
-    //Сделать, чтобы весь дроп наследовался от этого класса
     // "boss-material","character-ascension" одинаковы
 }

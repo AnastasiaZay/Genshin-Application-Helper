@@ -20,8 +20,8 @@
                 android:layout_width="215dp"
                 android:layout_height="150dp"
                 android:layout_margin="10dp"
-                app:cardCornerRadius="15dp"
                 android:background="@color/genshin_beige"
+                app:cardCornerRadius="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -109,8 +109,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                app:cardCornerRadius="20dp"
                 android:background="@color/genshin_beige"
+                app:cardCornerRadius="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cardView6">
@@ -118,8 +118,8 @@
                 <com.google.android.flexbox.FlexboxLayout
                     android:id="@+id/cardsMaterialsBooks"
                     android:layout_width="wrap_content"
-                    android:backgroundTint="@color/genshin_beige"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="@color/genshin_beige"
                     app:flexWrap="wrap"
                     app:justifyContent="center"></com.google.android.flexbox.FlexboxLayout>
             </androidx.cardview.widget.CardView>
@@ -172,9 +172,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:background="@color/genshin_beige"
                 android:padding="10dp"
                 app:cardCornerRadius="12dp"
-                android:background="@color/genshin_beige"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardView5">

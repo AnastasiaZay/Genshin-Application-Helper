@@ -3,7 +3,8 @@ package com.example.genshinapplication.helpers
 import com.example.genshinapplication.models.Artifact
 import com.example.genshinapplication.models.Drop
 import com.example.genshinapplication.models.Weapon
-import okhttp3.*
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import org.json.JSONObject
 import java.io.IOException
 import java.time.LocalDate

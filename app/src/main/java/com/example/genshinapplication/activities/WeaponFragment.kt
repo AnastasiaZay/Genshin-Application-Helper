@@ -3,10 +3,10 @@ package com.example.genshinapplication.activities
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.example.genshinapplication.R
 import com.example.genshinapplication.cards.CustomWeaponCard
 import com.example.genshinapplication.helpers.BASE_URL
@@ -29,19 +29,17 @@ class WeaponFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_weapon, container, false)
-
         weaponContainer = view.findViewById(R.id.weaponContainer)
-//        run()
-
         return view
     }
+
     fun addCharCard(ch: Weapon) {
-        val card = CustomWeaponCard( requireContext(), ch )
-        println( card )
-        weaponContainer.addView( card )
+        val card = CustomWeaponCard(requireContext(), ch)
+        println(card)
+        weaponContainer.addView(card)
     }
 
-    fun run(){
+    fun run() {
         val client = OkHttpClient()
 
         val request: Request = Request.Builder()
@@ -58,9 +56,8 @@ class WeaponFragment : Fragment() {
                 val jsonArr = JSONArray(res.body()!!.string())
 
                 var iterator = 0
-//                val lst = ArrayList<Weapon>()
                 while (iterator < jsonArr.length()) {
-                    getWeaponInfo(client,jsonArr.getString(iterator))
+                    getWeaponInfo(client, jsonArr.getString(iterator))
                     iterator++
                 }
 
@@ -72,7 +69,11 @@ class WeaponFragment : Fragment() {
         super.onAttach(context)
         run()
     }
-    fun getWeaponInfo(client: OkHttpClient, name: String) {  //https://api.genshin.dev/characters/имя-персонажа/icon  - картинки персонажа  (в частности, иконка)
+
+    fun getWeaponInfo(
+        client: OkHttpClient,
+        name: String
+    ) {  //https://api.genshin.dev/characters/имя-персонажа/icon  - картинки персонажа  (в частности, иконка)
         val request = Request
             .Builder()
             // Название оружия пиши ЧЕРЕЗ-ТИРЕ
@@ -96,21 +97,16 @@ class WeaponFragment : Fragment() {
 
             }
 
-            private fun parse(response: String){
+            private fun parse(response: String) {
                 val jsonObject = JSONObject(response)
 
                 weapon.name = jsonObject.getString("name")
-
-//                weapon.type = jsonObject.getString("type")
                 weapon.rarity = jsonObject.getInt("rarity")
-//                weapon.baseAttack = jsonObject.getInt("baseAttack")
-//                weapon.subStat = jsonObject.getString("subStat")
-//                weapon.passiveName = jsonObject.getString("passiveName")
-//                weapon.passiveDesc = jsonObject.getString("passiveDesc")
-//                weapon.location = jsonObject.getString("location")
-//                weapon.ascensionMaterial = jsonObject.getString("location") Надо добавить сам материал!!
-
-                weapon.imageUrl = Uri.parse("$BASE_URL/weapons/${name.lowercase().replace(" ","-").replace("'", "-")}/icon")
+                weapon.imageUrl = Uri.parse(
+                    "$BASE_URL/weapons/${
+                        name.lowercase().replace(" ", "-").replace("'", "-")
+                    }/icon"
+                )
 
                 activity?.runOnUiThread {
                     val card = CustomWeaponCard(requireContext(), weapon)

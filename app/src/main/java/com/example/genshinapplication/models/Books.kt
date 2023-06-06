@@ -1,7 +1,5 @@
 package com.example.genshinapplication.models
 
-import android.net.Uri
-
 class Books {
 
     var name: String? = null //Название дропа, но без тире

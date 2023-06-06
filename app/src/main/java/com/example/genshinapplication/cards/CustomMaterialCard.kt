@@ -11,9 +11,8 @@ import com.example.genshinapplication.R
 import com.example.genshinapplication.models.IDrop
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
-import java.lang.Exception
 
-class CustomMaterialCard: CardView {
+class CustomMaterialCard : CardView {
 
     constructor(context: Context, drop: IDrop) :
             this(
@@ -31,8 +30,8 @@ class CustomMaterialCard: CardView {
         inflater.inflate(R.layout.drop_card, this, true)
 
         val materialImageView = findViewById<ImageView>(R.id.materialImageView)
-//        characterImageView.setImageURI(characterIcon)
         //https://static.wikia.nocookie.net/gensin-impact/images/5/59/Traveler_Icon.png/revision/latest
+
         Picasso.get().load(imageUrl).into(materialImageView, object : Callback {
 
             override fun onSuccess() {}
@@ -64,8 +63,7 @@ class CustomMaterialCard: CardView {
         else
             name
 
-
-
+        //На будущее
 //        this.setOnClickListener {
 //            val i = Intent(context, WeaponProfileActivity::class.java)
 //            i.putExtra("name", name)

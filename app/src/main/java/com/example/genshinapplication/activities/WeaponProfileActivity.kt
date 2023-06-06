@@ -1,13 +1,12 @@
 package com.example.genshinapplication
 
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.genshinapplication.helpers.BASE_URL
-import com.example.genshinapplication.models.GenshinCharacter
 import com.example.genshinapplication.models.Weapon
 import com.squareup.picasso.Picasso
 import okhttp3.Call
@@ -17,15 +16,15 @@ import okhttp3.Request
 import okhttp3.Response
 import org.json.JSONObject
 import java.io.IOException
-import java.lang.Exception
 
 class WeaponProfileActivity : AppCompatActivity() {
     lateinit var imageView: ImageView
-//    lateinit var cardsMaterials: FlexboxLayout
+
+    //    lateinit var cardsMaterials: FlexboxLayout
     lateinit var name: String
-    lateinit var  baseAttack: TextView
-    lateinit var subStat:TextView
-    lateinit var passiveName:TextView
+    lateinit var baseAttack: TextView
+    lateinit var subStat: TextView
+    lateinit var passiveName: TextView
     lateinit var location: TextView
     lateinit var type: TextView
     lateinit var passiveDesc: TextView
@@ -37,16 +36,18 @@ class WeaponProfileActivity : AppCompatActivity() {
 //        cardsMaterials = findViewById(R.id.cardsMaterials)
         val nameView = findViewById<TextView>(R.id.nameView)
         nameView.text = intent.extras!!.getString("name")
-        name = intent.extras!!.getString("name")!!.lowercase().replace(" ", "-").replace("'", "-").replace("'", "-").replace("--", "-")
+        name = intent.extras!!.getString("name")!!.lowercase().replace(" ", "-").replace("'", "-")
+            .replace("'", "-").replace("--", "-")
         val client = OkHttpClient()
         baseAttack = findViewById(R.id.baseAttackView)
         subStat = findViewById(R.id.subStatView)
         passiveName = findViewById(R.id.passiveNameView)
         location = findViewById(R.id.locationView)
         passiveDesc = findViewById(R.id.passiveDescView)
-        type = findViewById<TextView>(R.id.weaponView)
+        type = findViewById(R.id.weaponView)
 
-        getWeaponInfo(client, name)}
+        getWeaponInfo(client, name)
+    }
 
     private fun getWeaponInfo(
         client: OkHttpClient,
@@ -88,7 +89,7 @@ class WeaponProfileActivity : AppCompatActivity() {
                 weapon.ascensionMaterial = jsonObject.getString("ascensionMaterial")
                 weapon.rarity = jsonObject.getInt("rarity")
                 weapon.location = jsonObject.getString("location")
-println(weapon.passiveDesc+" ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg")
+//                weapon.ascensionMaterial = jsonObject.getString("location") Надо добавить сам материал!!
 
 
                 var n = Uri.parse("$BASE_URL/weapons/$nameForPic/icon")
@@ -135,22 +136,16 @@ println(weapon.passiveDesc+" ggggggggggggggggggggggggggggggggggggggggggggggggggg
                     )
 
 
-
-
                     baseAttack.text = weapon.baseAttack.toString()
                     subStat.text = weapon.subStat
                     type.text = weapon.type
                     passiveName.text = weapon.passiveName
-                    location.text =  weapon.location
+                    location.text = weapon.location
                     passiveDesc.text = weapon.passiveDesc
                     location.text = weapon.location
-                    
 
                 }
-
-
             }
         })
-
     }
 }

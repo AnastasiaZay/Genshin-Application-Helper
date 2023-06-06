@@ -7,7 +7,6 @@ import android.widget.ImageView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import com.example.genshinapplication.R
-
 import com.example.genshinapplication.helpers.BASE_URL
 import com.example.genshinapplication.models.GenshinCharacter
 import com.google.android.flexbox.FlexboxLayout
@@ -20,10 +19,8 @@ import okhttp3.Response
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
-import java.lang.Exception
 
-//homeCard
-//dropImageView
+
 class CustomHomeCard : CardView {
 
     constructor(
@@ -35,7 +32,6 @@ class CustomHomeCard : CardView {
         inflater.inflate(R.layout.home_row, this, true)
 
         val dropImageView = findViewById<ImageView>(R.id.dropImageView)
-//        characterImageView.setImageURI(characterIcon)
         //https://static.wikia.nocookie.net/gensin-impact/images/5/59/Traveler_Icon.png/revision/latest
         Picasso.get().load(dropUri).into(dropImageView, object : Callback {
 
@@ -56,11 +52,8 @@ class CustomHomeCard : CardView {
         println("$dropUri")
         var c = 0
         while (c < characters.length()) {
-        println(characters.length().toString() + " fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff "+ c)
-//            var nameForPic = characters[c].toString().lowercase().replace(" ","-")
+            val ss = checkName(characters[c].toString().lowercase().replace(" ", "-"))
 
-        val ss = checkName(characters[c].toString().lowercase().replace(" ","-"))
-            println(ss +" wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww")
             val request = Request
                 .Builder()
                 .url("$BASE_URL/characters/${ss}")
@@ -76,10 +69,7 @@ class CustomHomeCard : CardView {
                 override fun onResponse(call: Call, res: Response) {
                     if (!res.isSuccessful)
                         throw IOException("Твой код не работает. Ошибка вот = ${res.code()}, ${res.message()}")
-
-
                     parse(res.body()!!.string())
-
                 }
 
                 private fun parse(response: String) {
@@ -89,27 +79,27 @@ class CustomHomeCard : CardView {
                     character.rarity = jsonObject.getInt("rarity")
 
 
-                    var n = Uri.parse("$BASE_URL/characters/${checkName(character.name.toString().lowercase().replace(" ", "-"))}/icon-big")
+                    var n = Uri.parse(
+                        "$BASE_URL/characters/${
+                            checkName(
+                                character.name.toString().lowercase().replace(" ", "-")
+                            )
+                        }/icon-big"
+                    )
                     character.characterUri = n
                     println(n)
-//characters[c]
                     val miniCard =
                         CustomMiniCharacterCard(context, character)
                     charactersContainer.post { charactersContainer.addView(miniCard) }
-
-
-
                 }
             })
             c++
         }
-
-
     }
 
     //Проверяем, чтобы имя соответствовало
-    fun checkName(name: String): String{
-        var nameNew: String = when(name){
+    fun checkName(name: String): String {
+        var nameNew: String = when (name) {
             "kamisato-ayaka" -> "ayaka"
             "kaedehara-kazuha" -> "kazuha"
             "sangonomiya-kokomi" -> "kokomi"
@@ -117,7 +107,7 @@ class CustomHomeCard : CardView {
             "raiden-shogun" -> "raiden"
             else -> name
         }
-        println(nameNew+" tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt")
+
         return nameNew
     }
 }

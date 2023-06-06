@@ -1,7 +1,5 @@
 package com.example.genshinapplication.models
 
-import android.net.Uri
-
 class DropFromDomain {
 
     // Материалы из подземелий (для возвышения оружия)

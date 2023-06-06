@@ -3,10 +3,10 @@ package com.example.genshinapplication.activities
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.example.genshinapplication.R
 import com.example.genshinapplication.cards.CustomArtifactCard
 import com.example.genshinapplication.helpers.BASE_URL
@@ -35,13 +35,14 @@ class ArtifactsFragment : Fragment() {
 
         return view
     }
+
     fun addCharCard(art: Artifact) {
-        val card = CustomArtifactCard( requireContext(), art )
-        println( card )
-        artifactContainer.addView( card )
+        val card = CustomArtifactCard(requireContext(), art)
+        println(card)
+        artifactContainer.addView(card)
     }
 
-    fun run(){
+    fun run() {
         val client = OkHttpClient()
 
         val request: Request = Request.Builder()
@@ -60,7 +61,7 @@ class ArtifactsFragment : Fragment() {
                 var iterator = 0
                 val lst = ArrayList<Artifact>()
                 while (iterator < jsonArr.length()) {
-                    getArtifactInfo(client,jsonArr.getString(iterator))
+                    getArtifactInfo(client, jsonArr.getString(iterator))
                     iterator++
                 }
 
@@ -72,7 +73,11 @@ class ArtifactsFragment : Fragment() {
         super.onAttach(context)
         run()
     }
-    fun getArtifactInfo(client: OkHttpClient, name: String) {  //https://api.genshin.dev/characters/имя-персонажа/icon  - картинки персонажа  (в частности, иконка)
+
+    fun getArtifactInfo(
+        client: OkHttpClient,
+        name: String
+    ) {  //https://api.genshin.dev/characters/имя-персонажа/icon  - картинки персонажа  (в частности, иконка)
         val request = Request
             .Builder()
             .url("$BASE_URL/artifacts/${name.lowercase()}")
@@ -94,7 +99,7 @@ class ArtifactsFragment : Fragment() {
 
             }
 
-            private fun parse(response: String){
+            private fun parse(response: String) {
                 val jsonObject = JSONObject(response)
 
                 artifact.name = jsonObject.getString("name")
@@ -102,7 +107,8 @@ class ArtifactsFragment : Fragment() {
 //                artifact.piece_2_bonus = jsonObject.getString("2-piece_bonus")
 //                artifact.piece_4_bonus = jsonObject.getString("4-piece_bonus")
 
-                artifact.circletUri = Uri.parse("$BASE_URL/artifacts/${name.lowercase()}/circlet-of-logos")
+                artifact.circletUri =
+                    Uri.parse("$BASE_URL/artifacts/${name.lowercase()}/circlet-of-logos")
 
 
 

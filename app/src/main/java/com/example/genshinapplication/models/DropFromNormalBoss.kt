@@ -2,7 +2,7 @@ package com.example.genshinapplication.models
 
 import android.net.Uri
 
-class DropFromNormalBoss :IDrop{
+class DropFromNormalBoss : IDrop {
 
     //Дроп с обычных боссов, стоимостью 40 смолы
     //Гемы тоже сюда надо добавить
@@ -20,7 +20,8 @@ class DropFromNormalBoss :IDrop{
     override fun getDropUri(): Uri? {
         return imageUrl
     }
-    override fun getDropRarity():Int? {
+
+    override fun getDropRarity(): Int? {
         return 4
     }
 }

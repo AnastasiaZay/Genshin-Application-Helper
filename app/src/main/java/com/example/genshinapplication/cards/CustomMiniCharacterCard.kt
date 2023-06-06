@@ -5,7 +5,6 @@ import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import com.example.genshinapplication.R
@@ -13,7 +12,6 @@ import com.example.genshinapplication.activities.CharacterProfileActivity
 import com.example.genshinapplication.models.GenshinCharacter
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
-import java.lang.Exception
 
 class CustomMiniCharacterCard : CardView {
 
@@ -33,10 +31,10 @@ class CustomMiniCharacterCard : CardView {
         inflater.inflate(R.layout.character_mini_card, this, true)
 
         val characterImageView = findViewById<ImageView>(R.id.materialImageView)
-//        characterImageView.setImageURI(characterIcon)
+
         //https://static.wikia.nocookie.net/gensin-impact/images/5/59/Traveler_Icon.png/revision/latest
 
-        characterImageView.post{
+        characterImageView.post {
             Picasso.get().load(characterIcon).into(characterImageView, object : Callback {
 
                 override fun onSuccess() {}
