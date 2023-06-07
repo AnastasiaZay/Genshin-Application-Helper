@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Switch
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.genshinapplication.R
@@ -32,6 +33,8 @@ class ProfileFragment : Fragment() {
     lateinit var followCharactersContainer: FlexboxLayout
     lateinit var myCharactersContainer: FlexboxLayout
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,6 +50,7 @@ class ProfileFragment : Fragment() {
         myCharactersContainer = view.findViewById(R.id.myCharactersContainer)
 
         textView = view.findViewById(R.id.textView)
+
 
         run()
 
@@ -84,7 +88,7 @@ class ProfileFragment : Fragment() {
             @Throws(IOException::class)
             override fun onResponse(call: Call?, res: Response) {
 //                val jsonArr = JSONArray(res.body()!!.string())
-                val arrFav = getArrayFavoriteCharacters()
+                val arrFav = getArrayCharacters("SELECT CHARACTERS_COLUMN_ID, COLUMN_CHARACTER_NAME FROM CHARACTERS_TABLE_NAME WHERE CHARACTERS_COLUMN_IS_FAVORITE is 1")
                 var iterator =0
                 while (iterator < arrFav!!.size) {
                     getFavoriteCharacterInfo(
@@ -94,7 +98,7 @@ class ProfileFragment : Fragment() {
                     iterator++
                 }
 
-                val arrFoll = getArrayFollowCharacters()
+                val arrFoll = getArrayCharacters("SELECT CHARACTERS_COLUMN_ID, COLUMN_CHARACTER_NAME FROM CHARACTERS_TABLE_NAME WHERE CHARACTERS_COLUMN_AM_I_FOLLOW is 1")
                 iterator =0
                 while (iterator < arrFoll!!.size) {
                     getFollowteCharacterInfo(
@@ -104,7 +108,7 @@ class ProfileFragment : Fragment() {
                     iterator++
                 }
 
-                val arrMy = getArrayMyCharacters()
+                val arrMy = getArrayCharacters("SELECT CHARACTERS_COLUMN_ID, COLUMN_CHARACTER_NAME FROM CHARACTERS_TABLE_NAME WHERE CHARACTERS_COLUMN_AM_I_HAVE is 1")
                 iterator =
                     0 //Надо, чтобы он искал только по именам тех, у кого в базе данных стоит нужный флажок
                 while (iterator < arrMy!!.size) {
@@ -292,7 +296,9 @@ class ProfileFragment : Fragment() {
 //        textView!!.text = product
 //    }
 
-    fun getArrayFavoriteCharacters(): ArrayList<String>? {
+
+    fun getArrayCharacters(s: String): ArrayList<String>? {
+        // В s заносим sql запрос, пример -  "SELECT CHARACTERS_COLUMN_ID, COLUMN_CHARACTER_NAME FROM CHARACTERS_TABLE_NAME WHERE CHARACTERS_COLUMN_AM_I_HAVE is 1"
         mDBHelper = MyDatabaseHelper(this.requireContext())
         try {
             mDBHelper!!.updateDataBase()
@@ -306,36 +312,7 @@ class ProfileFragment : Fragment() {
         }
         var charactersArray: ArrayList<String>? = ArrayList<String>() //= listOf<String>()
         val cursor = mDb!!.rawQuery(
-            "SELECT CHARACTERS_COLUMN_ID, COLUMN_CHARACTER_NAME FROM CHARACTERS_TABLE_NAME WHERE CHARACTER_IS_FAVORITE is 1",
-            null
-        )
-        cursor.moveToFirst()
-        while (!cursor.isAfterLast) {
-            println(cursor.getString(1))
-            charactersArray?.add(cursor.getString(1).toString())
-            cursor.moveToNext()
-            println(charactersArray)
-        }
-        cursor.close()
-
-        return charactersArray
-    }
-
-    fun getArrayFollowCharacters(): ArrayList<String>? {
-        mDBHelper = MyDatabaseHelper(this.requireContext())
-        try {
-            mDBHelper!!.updateDataBase()
-        } catch (mIOException: IOException) {
-            throw Error("UnableToUpdateDatabase")
-        }
-        mDb = try {
-            mDBHelper!!.writableDatabase
-        } catch (mSQLException: SQLException) {
-            throw mSQLException
-        }
-        var charactersArray: ArrayList<String>? = ArrayList<String>() //= listOf<String>()
-        val cursor = mDb!!.rawQuery(
-            "SELECT CHARACTERS_COLUMN_ID, COLUMN_CHARACTER_NAME FROM CHARACTERS_TABLE_NAME WHERE CHARACTERS_COLUMN_AM_I_FOLLOW is 1",
+            s,
             null
         )
         cursor.moveToFirst()
@@ -350,34 +327,7 @@ class ProfileFragment : Fragment() {
         return charactersArray
     }
 
-    fun getArrayMyCharacters(): ArrayList<String>? {
-        mDBHelper = MyDatabaseHelper(this.requireContext())
-        try {
-            mDBHelper!!.updateDataBase()
-        } catch (mIOException: IOException) {
-            throw Error("UnableToUpdateDatabase")
-        }
-        mDb = try {
-            mDBHelper!!.writableDatabase
-        } catch (mSQLException: SQLException) {
-            throw mSQLException
-        }
-        var charactersArray: ArrayList<String>? = ArrayList<String>() //= listOf<String>()
-        val cursor = mDb!!.rawQuery(
-            "SELECT CHARACTERS_COLUMN_ID, COLUMN_CHARACTER_NAME FROM CHARACTERS_TABLE_NAME WHERE CHARACTERS_COLUMN_AM_I_HAVE is 1",
-            null
-        )
-        cursor.moveToFirst()
-        while (!cursor.isAfterLast) {
-            println(cursor.getString(1))
 
-            charactersArray?.add(cursor.getString(1).toString())
-            cursor.moveToNext()
-            println(charactersArray)
-        }
-        cursor.close()
-        return charactersArray
-    }
 
 }
 

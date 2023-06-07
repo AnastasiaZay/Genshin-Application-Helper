@@ -1,16 +1,21 @@
 package com.example.genshinapplication.activities
 
 import android.app.ActionBar.LayoutParams
+import android.database.SQLException
+import android.database.sqlite.SQLiteDatabase
 import android.net.Uri
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.widget.ImageView
 import android.widget.ScrollView
+import android.widget.Switch
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.genshinapplication.R
 import com.example.genshinapplication.cards.CustomMaterialCard
 import com.example.genshinapplication.helpers.BASE_URL
+import com.example.genshinapplication.helpers.MyDatabaseHelper
 import com.example.genshinapplication.models.GenshinCharacter
 import com.google.android.flexbox.FlexboxLayout
 import com.squareup.picasso.Picasso
@@ -22,16 +27,26 @@ import okhttp3.Response
 import org.json.JSONObject
 import java.io.IOException
 
+
 class CharacterProfileActivity : AppCompatActivity() {
     lateinit var imageView: ImageView
     lateinit var cardsMaterials: FlexboxLayout
     lateinit var cardsMaterialsBooks: FlexboxLayout
     lateinit var skrollBgView: ScrollView
-
+    private var mDBHelper: MyDatabaseHelper? = null
+    private var mDb: SQLiteDatabase? = null
+    lateinit var switchFavorite: Switch
+    lateinit var switchMy: Switch
+    lateinit var switchFollow: Switch
     lateinit var name: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_character_profile)
+
+        switchMy = findViewById(R.id.switchHaveCharacter)
+//        val prefs = PreferenceManager.getDefaultSharedPreferences(this.applicationContext)
+        switchFollow = findViewById(R.id.followBookSwitch)
+        switchFavorite = findViewById(R.id.favoriteCharacterSwitch)
         imageView = findViewById(R.id.imageView)
         //Для всего, кроме книг
         cardsMaterials = findViewById(R.id.cardsMaterials)
@@ -50,6 +65,53 @@ class CharacterProfileActivity : AppCompatActivity() {
         getDropFromEnemy(client)
         getDropBooks(client)
 //        getDropFromWorld(client)
+
+
+
+        mDBHelper = MyDatabaseHelper(applicationContext)
+        try {
+            mDBHelper!!.updateDataBase()
+        } catch (mIOException: IOException) {
+            throw Error("UnableToUpdateDatabase")
+        }
+        mDb = try {
+            mDBHelper!!.writableDatabase
+        } catch (mSQLException: SQLException) {
+            throw mSQLException
+        }
+
+        //Задаем запросы SQL для каждого свича
+        val myString = "SELECT CHARACTERS_COLUMN_ID, CHARACTERS_COLUMN_AM_I_HAVE FROM CHARACTERS_TABLE_NAME WHERE COLUMN_CHARACTER_NAME = "
+        val favoriteString = "SELECT CHARACTERS_COLUMN_ID, CHARACTERS_COLUMN_IS_FAVORITE FROM CHARACTERS_TABLE_NAME WHERE COLUMN_CHARACTER_NAME = "
+        val followString = "SELECT CHARACTERS_COLUMN_ID, CHARACTERS_COLUMN_AM_I_FOLLOW FROM CHARACTERS_TABLE_NAME WHERE COLUMN_CHARACTER_NAME = "
+        //Ставим свичи в нужное положение
+        if (mDBHelper!!.getSwitchState(name,myString) == 1) switchMy.setChecked(true)
+        if (mDBHelper!!.getSwitchState(name,followString) == 1) switchFollow.setChecked(true)
+        if (mDBHelper!!.getSwitchState(name,favoriteString) == 1) switchFavorite.setChecked(true)
+
+        var s = mDBHelper!!.getSwitchState(name,myString)
+//        runOnUiThread { }
+        switchMy.setOnCheckedChangeListener{ _, s ->
+            var i: Int = if(s) 1
+            else 0
+            mDBHelper!!.updateSwitchState(i, name, "CHARACTERS_COLUMN_AM_I_HAVE")
+        }
+
+//        s = mDBHelper!!.getSwitchState(name,myString)
+        switchFavorite.setOnCheckedChangeListener{ _, s ->
+            var i: Int = if(s) 1
+            else 0
+            mDBHelper!!.updateSwitchState(i, name, "CHARACTERS_COLUMN_IS_FAVORITE")
+        }
+        switchFollow.setOnCheckedChangeListener{ _, s ->
+            var i: Int = if(s) 1
+            else 0
+            mDBHelper!!.updateSwitchState(i, name, "CHARACTERS_COLUMN_AM_I_FOLLOW")
+        }
+//       println( mDBHelper!!.getSwitchState(name,myString).toString() + "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV")
+//        checkSwitchState(myString,name, switchMy)
+//        checkSwitchState(favoriteString)
+//        checkSwitchState(followString)
 
     }
 
@@ -382,7 +444,7 @@ class CharacterProfileActivity : AppCompatActivity() {
         })
     }
 
-    /* Надо с этой функцией поработать
+    //Надо с этой функцией поработать
     private fun getDropFromWorld(client: OkHttpClient){
         val request = Request
             .Builder()
@@ -446,7 +508,7 @@ class CharacterProfileActivity : AppCompatActivity() {
         })
     }
 
-     */
+
     private fun getCharacterInfo(
         client: OkHttpClient,
         name: String
@@ -581,4 +643,12 @@ class CharacterProfileActivity : AppCompatActivity() {
         }
         return nameNew
     }
+//Проверка для Switch
+    fun checkSwitchState(string: String, name: String, switchName:Switch){
+
+
+
+    }
+
+
 }

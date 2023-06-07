@@ -1,5 +1,6 @@
 package com.example.genshinapplication.helpers
 
+import android.content.ContentValues
 import android.content.Context
 import android.database.SQLException
 import android.database.sqlite.SQLiteDatabase
@@ -85,10 +86,41 @@ class MyDatabaseHelper(context: Context) :
         if (newVersion > oldVersion) mNeedUpdate = true
     }
 
+    //var s = "SELECT $CHARACTERS_COLUMN_AM_I_FOLLOW FROM $CHARACTERS_TABLE_NAME WHERE $COLUMN_CHARACTER_NAME ="
+    fun getSwitchState(name: String, sql: String): Int {
+        val db = this.readableDatabase
+        var sqlZapros = "$sql'$name'"
+        val query = sqlZapros
+        val cursor = db.rawQuery(query, null)
+        var state = 0
+        cursor.moveToFirst()
+        while (!cursor.isAfterLast) {
+            state = cursor.getInt(1)
+            cursor.moveToNext()
+            println(state)
+        }
+        cursor.close()
+//        if (cursor.moveToFirst()) {
+//            state = cursor.getInt(cursor.getColumnIndex(CHARACTERS_COLUMN_AM_I_FOLLOW))
+//        }
+//        cursor.close()
+        db.close()
+        return state
+    }
+
+
+    fun updateSwitchState(state: Int, name: String, column: String) {
+        val db = this.writableDatabase
+        val values = ContentValues()
+        values.put(column, state)
+//        db.update(CHARACTERS_TABLE_NAME, values, "$COLUMN_CHARACTER_NAME = '$name'", arrayOf("1"))
+        db.execSQL("UPDATE CHARACTERS_TABLE_NAME SET $column = $state WHERE COLUMN_CHARACTER_NAME = '$name' ");
+        db.close()
+    }
 
     companion object {
         private const val DATABASE_NAME = "db.db"
-        private const val DATABASE_VERSION = 2
+        private const val DATABASE_VERSION = 3
         private var DB_PATH = ""
         private const val CHARACTERS_TABLE_NAME = "CHARACTERS_TABLE_NAME"
         private const val CHARACTERS_COLUMN_ID = "CHARACTERS_COLUMN_ID"
