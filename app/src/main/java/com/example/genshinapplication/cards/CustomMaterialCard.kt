@@ -58,8 +58,8 @@ class CustomMaterialCard : CardView {
         )
 
         val nameView = findViewById<TextView>(R.id.nameView)
-        nameView.text = if (name.length > 99)
-            name.take(99) + "..."
+        nameView.text = if (name.length > 23)
+            name.take(23) + "..."
         else
             name
 

@@ -26,7 +26,7 @@ class AlarmReceiver: BroadcastReceiver()  {
     }
 
     private fun handleAlarmData(context: Context?) {
-////        val lstTomorrow = db.getNotesOfDay( LocalDate.now().plusDays(1).toEpochDay() )
+//        val lstTomorrow = db.getNotesOfDay( LocalDate.now().plusDays(1).toEpochDay() )
 //        if( lstTomorrow.isEmpty() ) return
 //
 //        var description = "У вас завтра"
@@ -66,7 +66,7 @@ class AlarmReceiver: BroadcastReceiver()  {
 
         val builder = NotificationCompat.Builder(context, CHANNEL_ID)
 //            .setSmallIcon(R.drawable.ic_calendar)
-            .setContentTitle("Грядут планы")
+            .setContentTitle(context.getString(R.string.book_notification_title)+" ")
             .setContentText(description)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setContentIntent(pendingIntent)

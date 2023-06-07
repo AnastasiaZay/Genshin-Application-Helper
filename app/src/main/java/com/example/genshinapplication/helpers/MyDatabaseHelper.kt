@@ -6,6 +6,7 @@ import android.database.SQLException
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.os.Build
+import android.provider.ContactsContract.Data
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -110,17 +111,22 @@ class MyDatabaseHelper(context: Context) :
 
 
     fun updateSwitchState(state: Int, name: String, column: String) {
+
         val db = this.writableDatabase
         val values = ContentValues()
         values.put(column, state)
 //        db.update(CHARACTERS_TABLE_NAME, values, "$COLUMN_CHARACTER_NAME = '$name'", arrayOf("1"))
-        db.execSQL("UPDATE CHARACTERS_TABLE_NAME SET $column = $state WHERE COLUMN_CHARACTER_NAME = '$name' ");
+        db.execSQL("UPDATE CHARACTERS_TABLE_NAME SET $column = $state WHERE COLUMN_CHARACTER_NAME = '${checkName(name)}' ");
         db.close()
+    }
+
+    fun getTodayFollowBooks(day: Data){
+
     }
 
     companion object {
         private const val DATABASE_NAME = "db.db"
-        private const val DATABASE_VERSION = 3
+        private const val DATABASE_VERSION = 4
         private var DB_PATH = ""
         private const val CHARACTERS_TABLE_NAME = "CHARACTERS_TABLE_NAME"
         private const val CHARACTERS_COLUMN_ID = "CHARACTERS_COLUMN_ID"
@@ -138,6 +144,16 @@ class MyDatabaseHelper(context: Context) :
         private const val BOOKS_COLUMN_AM_I_FOLLOW = "BOOKS_COLUMN_AM_I_FOLLOW"
 
     }
-
+    fun checkName(name: String): String {
+        var nameNew: String = when (name) {
+            "kamisato-ayaka" -> "ayaka"
+            "kaedehara-kazuha" -> "kazuha"
+            "sangonomiya-kokomi" -> "kokomi"
+            "kujou-sara" -> "sara"
+            "raiden-shogun" -> "raiden"
+            else -> name
+        }
+        return nameNew
+    }
 
 }

@@ -23,14 +23,16 @@
                 android:layout_width="215dp"
                 android:layout_height="150dp"
                 android:layout_margin="10dp"
-                android:background="@color/genshin_beige"
+
                 app:cardCornerRadius="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+
+                    >
 
                     <TextView
 
@@ -113,13 +115,15 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/switchesView"
                 android:layout_margin="10dp"
-                android:background="@color/genshin_beige"
+
                 app:cardCornerRadius="10dp"
                 app:layout_constraintTop_toBottomOf="@+id/cardView5" >
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+
+                    >
 
                     <Switch
                         android:id="@+id/favoriteCharacterSwitch"
@@ -130,7 +134,8 @@
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
 
                     <Switch
                         android:id="@+id/followBookSwitch"
@@ -150,7 +155,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:background="@color/genshin_beige"
+
                 app:cardCornerRadius="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -160,8 +165,9 @@
                     android:id="@+id/cardsMaterialsBooks"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/genshin_beige"
+
                     app:flexWrap="wrap"
+                    android:stateListAnimator="@null"
                     app:justifyContent="center"></com.google.android.flexbox.FlexboxLayout>
             </androidx.cardview.widget.CardView>
 
@@ -170,7 +176,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:background="@color/genshin_beige"
+
                 app:cardCornerRadius="20dp"
                 app:layout_constraintEnd_toEndOf="@id/cardsMaterialsBooksCard"
                 app:layout_constraintStart_toStartOf="@id/cardsMaterialsBooksCard"
@@ -180,7 +186,7 @@
                     android:id="@+id/cardsMaterials"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/genshin_beige"
+
                     app:flexWrap="wrap"
                     app:justifyContent="center"></com.google.android.flexbox.FlexboxLayout>
             </androidx.cardview.widget.CardView>
@@ -190,6 +196,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+
                 android:layout_marginTop="10dp"
                 app:cardCornerRadius="15dp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -213,8 +220,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:background="@color/genshin_beige"
-                android:padding="10dp"
+
                 app:cardCornerRadius="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

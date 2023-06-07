@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.genshinapplication.R
 import com.example.genshinapplication.cards.CustomCharacterCard
+import com.example.genshinapplication.cards.CustomMiniCharacterCard
 import com.example.genshinapplication.helpers.BASE_URL
 import com.example.genshinapplication.helpers.MyDatabaseHelper
 import com.example.genshinapplication.models.GenshinCharacter
@@ -217,7 +218,7 @@ class ProfileFragment : Fragment() {
 
 
                 activity?.runOnUiThread {
-                    val card = CustomCharacterCard(requireContext(), character)
+                    val card = CustomMiniCharacterCard(requireContext(), character)
                     println(card)
                     followCharactersContainer.addView(card)
                 }
@@ -265,7 +266,7 @@ class ProfileFragment : Fragment() {
 
 
                 activity?.runOnUiThread {
-                    val card = CustomCharacterCard(requireContext(), character)
+                    val card = CustomMiniCharacterCard(requireContext(), character)
                     println(card)
                     myCharactersContainer.addView(card)
                 }

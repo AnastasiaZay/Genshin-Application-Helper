@@ -58,7 +58,7 @@ class CustomArtifactCard : CardView {
 
         val nameView = findViewById<TextView>(R.id.nameView)
         nameView.text = if (name.length > 9)
-            name.take(9) + "..."
+            name.take(8) + "..."
         else
             name
 

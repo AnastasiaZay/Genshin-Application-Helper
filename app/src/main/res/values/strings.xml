@@ -22,6 +22,8 @@
     <string name="polearm">Polearm</string>
     <string name="i_have">I have</string>
     <string name="available_at">Available at:</string>
+    <string name="book_notification_one">Today books to farm for </string>
+    <string name="book_notification_title">Don\'t forget talent book!</string>
     <string name="talents_priority">Talents Priority</string>
     <string name="weekly_boss">Weekly Boss Item</string>
     <string name="artifacts">Artifacts</string>

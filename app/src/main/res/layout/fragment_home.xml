@@ -4,11 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.HomeFragment">
+    tools:context=".activities.HomeFragment"
+    android:background="@drawable/bg_home">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#00555555">
 
         <LinearLayout
             android:id="@+id/homeCard"
@@ -17,10 +19,13 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-            android:backgroundTint="#A100BCD4"
+            android:background="#00555555"
+            app:cardBackgroundColor="@android:color/transparent"
             android:minHeight="50dp"
             android:orientation="vertical"
-            app:cardCornerRadius="20dp"></LinearLayout>
+            app:cardCornerRadius="20dp">
+
+        </LinearLayout>
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

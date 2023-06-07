@@ -110,7 +110,7 @@ class ArtifactProfileActivity : AppCompatActivity() {
                         text2View.text =
                             applicationContext.getString(R.string.artifacts_2_pies_bonus) + " \n" + artifact.piece_2_bonus
                         rarView.text =
-                            applicationContext.getString(R.string.max_rarity) + " \n" + artifact.max_rarity
+                            applicationContext.getString(R.string.max_rarity) + " "+ artifact.max_rarity
 
                         Picasso.get().load(n).into(imageViewHat, object :
                             com.squareup.picasso.Callback {

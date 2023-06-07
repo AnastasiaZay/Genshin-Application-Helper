@@ -23,6 +23,8 @@
     <string name="polearm">Древковое</string>
     <string name="i_have">Есть у меня</string>
     <string name="available_at">Доступно в:</string>
+    <string name="book_notification_one">Сегодня вы фармите книжки для:</string>
+    <string name="book_notification_title">Не забудьте про книги талантов!</string>
     <string name="talents_priority">Приоритет прокачки</string>
     <string name="weekly_boss">Предмет с босса</string>
     <string name="artifacts">Артефакты</string>
