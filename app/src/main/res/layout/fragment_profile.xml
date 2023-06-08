@@ -25,6 +25,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.cardview.widget.CardView
+
                 android:id="@+id/favoriteCharactersCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -36,6 +37,8 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
+                    android:background="@drawable/bg_home"
+
                     android:layout_height="match_parent">
 
                     <TextView
@@ -45,7 +48,8 @@
                         android:text="@string/favorite_characters"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:textColor="@color/white"/>
 
                     <com.google.android.flexbox.FlexboxLayout
                         android:id="@+id/favoriteCharactersContainer"
@@ -69,6 +73,8 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
+                    android:background="@drawable/bg_home"
+
                     android:layout_height="match_parent">
 
                     <TextView
@@ -77,6 +83,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/follow_book_characters"
                         app:layout_constraintEnd_toEndOf="parent"
+                        android:textColor="@color/white"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -102,12 +109,15 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_home"
+                    >
 
                     <TextView
                         android:id="@+id/myCharactersTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/white"
                         android:text="@string/my_characters"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

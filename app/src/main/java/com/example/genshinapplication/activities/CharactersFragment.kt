@@ -11,6 +11,7 @@ import com.example.genshinapplication.R
 import com.example.genshinapplication.cards.CustomCharacterCard
 import com.example.genshinapplication.helpers.BASE_URL
 import com.example.genshinapplication.models.GenshinCharacter
+import com.google.android.flexbox.FlexboxItemDecoration
 import com.google.android.flexbox.FlexboxLayout
 import okhttp3.Call
 import okhttp3.Callback
@@ -110,6 +111,7 @@ class CharactersFragment : Fragment() {
 
 
                 activity?.runOnUiThread {
+//                    characterContainer.
                     val card = CustomCharacterCard(requireContext(), character)
                     println(card)
                     characterContainer.addView(card)

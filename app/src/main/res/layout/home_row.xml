@@ -4,11 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="10dp"
+    android:background="@drawable/bg_home"
     >
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/bg_home"
 
         app:cardCornerRadius="20dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -16,7 +18,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_home"
+            >
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card"
@@ -51,6 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:maxWidth="150dp"
+
                 app:flexWrap="wrap"
                 app:justifyContent="center"
                 app:layout_constraintBottom_toBottomOf="@id/card"
