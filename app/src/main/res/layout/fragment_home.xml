@@ -10,8 +10,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#00555555">
-
+        >
+<!--        android:background="#00555555"-->
         <LinearLayout
             android:id="@+id/homeCard"
             android:layout_width="match_parent"
@@ -23,7 +23,7 @@
             app:cardBackgroundColor="@android:color/transparent"
             android:minHeight="50dp"
             android:orientation="vertical"
-            app:cardCornerRadius="20dp">
+           >
 
         </LinearLayout>
     </ScrollView>

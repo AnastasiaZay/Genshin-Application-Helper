@@ -5,6 +5,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+
+    <color name="trans_black">#80000000</color>
+    <color name="trans">#00000000</color>
+    <color name="trans_beige">#80f6f2e7</color>
     <color name="teal_700">#ccad5b</color>
     <color name="purple_700">#60478b</color>
     <color name="purple_500">#4a508c</color>

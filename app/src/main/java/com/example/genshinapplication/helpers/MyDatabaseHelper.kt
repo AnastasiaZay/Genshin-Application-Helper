@@ -6,7 +6,6 @@ import android.database.SQLException
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.os.Build
-import android.provider.ContactsContract.Data
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -116,17 +115,122 @@ class MyDatabaseHelper(context: Context) :
         val values = ContentValues()
         values.put(column, state)
 //        db.update(CHARACTERS_TABLE_NAME, values, "$COLUMN_CHARACTER_NAME = '$name'", arrayOf("1"))
-        db.execSQL("UPDATE CHARACTERS_TABLE_NAME SET $column = $state WHERE COLUMN_CHARACTER_NAME = '${checkName(name)}' ");
+        db.execSQL(
+            "UPDATE CHARACTERS_TABLE_NAME SET $column = $state WHERE COLUMN_CHARACTER_NAME = '${
+                checkName(
+                    name
+                )
+            }' "
+        );
         db.close()
     }
 
-    fun getTodayFollowBooks(day: Data){
 
+    fun getFollowingCharacters(): ArrayList<String> {
+        val db = readableDatabase
+        //Получаем книжки
+        // В s заносим sql запрос, пример -  "SELECT CHARACTERS_COLUMN_ID, COLUMN_CHARACTER_NAME FROM CHARACTERS_TABLE_NAME WHERE CHARACTERS_COLUMN_AM_I_HAVE is 1"
+        val cursor = db.rawQuery(
+            "SELECT CHARACTERS_COLUMN_ID, CHARACTERS_COLUMN_BOOK FROM CHARACTERS_TABLE_NAME WHERE CHARACTERS_COLUMN_AM_I_FOLLOW is 1",
+            null
+        )
+        val booksOfFollowingCharacterList = arrayListOf<String>()
+        if (cursor.moveToFirst()) {
+            do {
+                booksOfFollowingCharacterList.add(cursor.getString(1))
+            } while (cursor.moveToNext())
+
+        }
+        cursor.close()
+        return booksOfFollowingCharacterList
+    }
+
+    fun getFollowingBook(booksOfFollowingCharacterList: ArrayList<String>): ArrayList<Int> {
+        val db = readableDatabase
+        val daysPairs = arrayListOf<Int>()
+        var params = ""
+        for (e in booksOfFollowingCharacterList)
+            params += ",$e"
+
+        params = "(" + params.drop(1) + ")"
+        val cursor2 =
+            db.rawQuery(
+                "SELECT BOOKS_COLUMN_DAY FROM BOOKS_TABLE_NAME WHERE BOOKS_COLUMN_ID in $params",
+                null
+            )
+        if (cursor2.moveToFirst()) {
+            do {
+                daysPairs.add(cursor2.getInt(0))
+                println(cursor2.getString(0))
+            } while (cursor2.moveToNext())
+        }
+        cursor2.close()
+        return daysPairs
+    }
+
+    fun getFollowDaysInfo(daysPairs: ArrayList<Int>): Set<String> {
+        val db = readableDatabase
+        var params = ""
+        for (e in daysPairs)
+            params += ",'$e'"
+
+        params = "(" + params.drop(1) + ")"
+        val cursor3 = db.rawQuery(
+            "SELECT BOOK_DAY_DAY, BOOK_DAY_DWA, BOOK_DAY_TRI FROM BOOKS_DAYS_TABLE_NAME WHERE BOOK_DAY_ID in $params",
+            null
+        )
+        val daysToFollow = mutableSetOf<String>()
+        if (cursor3.moveToFirst()) {
+            do {
+                daysToFollow.add(cursor3.getString(0))
+
+                daysToFollow.add(cursor3.getString(1))
+
+                daysToFollow.add(cursor3.getString(2))
+
+            } while (cursor3.moveToNext())
+        }
+        return daysToFollow
+    }
+
+    fun getFollowingCharactersNames(day: String): ArrayList<String> {
+        val db = readableDatabase
+        //Получаем книжки
+
+        // В s заносим sql запрос, пример -  "SELECT CHARACTERS_COLUMN_ID, COLUMN_CHARACTER_NAME FROM CHARACTERS_TABLE_NAME WHERE CHARACTERS_COLUMN_AM_I_HAVE is 1"
+        val cursor = db.rawQuery(
+            """
+                select COLUMN_CHARACTER_NAME 
+                  from CHARACTERS_TABLE_NAME 
+                where CHARACTERS_COLUMN_AM_I_FOLLOW is 1 and 
+                  CHARACTERS_COLUMN_BOOK =  
+                (
+                  select BOOKS_COLUMN_ID 
+                  from BOOKS_TABLE_NAME 
+                    where BOOKS_COLUMN_DAY = 
+                  (
+                    select BOOK_DAY_ID 
+                      from BOOKS_DAYS_TABLE_NAME
+                    where  BOOK_DAY_DAY = '$day' or BOOK_DAY_DWA = '$day' or BOOK_DAY_TRI = '$day'
+                  )
+                )
+            """.trimIndent(),
+            null
+        )
+        val nameCharactersList = arrayListOf<String>()
+        if (cursor.moveToFirst()) {
+            do {
+                nameCharactersList.add(cursor.getString(0))
+            } while (cursor.moveToNext())
+
+        }
+        cursor.close()
+        return nameCharactersList
     }
 
     companion object {
         private const val DATABASE_NAME = "db.db"
-        private const val DATABASE_VERSION = 4
+        private const val DATABASE_VERSION = 5
         private var DB_PATH = ""
         private const val CHARACTERS_TABLE_NAME = "CHARACTERS_TABLE_NAME"
         private const val CHARACTERS_COLUMN_ID = "CHARACTERS_COLUMN_ID"
@@ -144,6 +248,7 @@ class MyDatabaseHelper(context: Context) :
         private const val BOOKS_COLUMN_AM_I_FOLLOW = "BOOKS_COLUMN_AM_I_FOLLOW"
 
     }
+
     fun checkName(name: String): String {
         var nameNew: String = when (name) {
             "kamisato-ayaka" -> "ayaka"

@@ -1,4 +1,4 @@
-package com.example.plannerapp
+package com.example.genshinapplication.helpers
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -6,10 +6,11 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.icu.util.LocaleData
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat
 import com.example.genshinapplication.R
 import com.example.genshinapplication.activities.MainActivity
-import com.example.genshinapplication.helpers.MyDatabaseHelper
 import java.time.LocalDate
 
 const val NOTIFICATION_ID = 1
@@ -26,21 +27,28 @@ class AlarmReceiver: BroadcastReceiver()  {
     }
 
     private fun handleAlarmData(context: Context?) {
-//        val lstTomorrow = db.getNotesOfDay( LocalDate.now().plusDays(1).toEpochDay() )
-//        if( lstTomorrow.isEmpty() ) return
-//
-//        var description = "У вас завтра"
-//            description +=
-//                if( lstTomorrow.size == 1) " 1 запланированное событие"
-//                else " ${lstTomorrow.size} запланированных событий"
-//
-//        createNotification(
-//            context = context!!,
-//            description = description
-//        )
+        val followingCharactersId = db.getFollowingCharacters()
+        val followingBooksId = db.getFollowingBook(followingCharactersId)
+        val lstFollowingDays = db.getFollowDaysInfo(followingBooksId)
+        val today = LocalDate.now().dayOfWeek.name.lowercase()
+        if( lstFollowingDays.isEmpty() ) return
+        if (!lstFollowingDays.contains(today)) return
+        val followingCharactersNames = db.getFollowingCharactersNames(today)
+        var description = context!!.getString(R.string.book_notification_one)
+        for (name in followingCharactersNames){
+            description +=" $name,"
+
+        }
+        description.dropLast(1) //убираем лишнюю запятую
+        createNotification(
+            context = context!!,
+            description = description
+        )
     }
 
+
     private fun createNotification( context: Context, description : String) {
+
         val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         val channel = NotificationChannel(
@@ -65,9 +73,10 @@ class AlarmReceiver: BroadcastReceiver()  {
             )
 
         val builder = NotificationCompat.Builder(context, CHANNEL_ID)
-//            .setSmallIcon(R.drawable.ic_calendar)
+            .setSmallIcon(R.drawable.not_ic)
             .setContentTitle(context.getString(R.string.book_notification_title)+" ")
-            .setContentText(description)
+            .setContentText(context!!.getString(R.string.book_notification_one))
+            .setStyle(NotificationCompat.BigTextStyle().bigText(description))
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)

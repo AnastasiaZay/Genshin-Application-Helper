@@ -24,6 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 app:cardCornerRadius="20dp"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -36,28 +37,27 @@
                     android:src="@drawable/ic_menu" />
             </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="@id/card"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/card"
-                app:cardCornerRadius="20dp"
-                app:layout_constraintTop_toTopOf="@+id/card">
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:layout_constraintBottom_toBottomOf="@id/card"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toEndOf="@id/card"-->
+<!--                app:cardCornerRadius="20dp"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/card">-->
             <com.google.android.flexbox.FlexboxLayout
                 android:id="@+id/charactersContainer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-                android:background="@android:color/transparent"
-                android:backgroundTint="@android:color/transparent"
+                android:layout_margin="10dp"
                 android:maxWidth="150dp"
                 app:flexWrap="wrap"
+                app:justifyContent="center"
                 app:layout_constraintBottom_toBottomOf="@id/card"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/card"
                 app:layout_constraintTop_toTopOf="@+id/card" />
-            </androidx.cardview.widget.CardView>
+<!--            </androidx.cardview.widget.CardView>-->
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

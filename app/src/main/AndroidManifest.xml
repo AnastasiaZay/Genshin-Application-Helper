@@ -11,8 +11,9 @@
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
+        android:localeConfig="@xml/locale_config"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/paimon_ic"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.GenshinApplication"
@@ -45,9 +46,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<!--        <receiver-->
-<!--            android:name=".AlarmReceiver"-->
-<!--            android:enabled="true"/>-->
+        <receiver
+            android:name=".helpers.AlarmReceiver"
+            android:enabled="true"/>
 
     </application>
 

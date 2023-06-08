@@ -163,8 +163,9 @@
 
                 <com.google.android.flexbox.FlexboxLayout
                     android:id="@+id/cardsMaterialsBooks"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@null"
 
                     app:flexWrap="wrap"
                     android:stateListAnimator="@null"

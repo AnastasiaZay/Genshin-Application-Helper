@@ -122,6 +122,7 @@ class CharacterProfileActivity : AppCompatActivity() {
 
     fun createDropCardBooks(dropName: String, dropImage: Uri, dropRarity: Int) {
         val card = CustomMaterialCard(applicationContext, dropName, dropImage, dropRarity)
+
         cardsMaterialsBooks.addView(card)
     }
 
@@ -186,7 +187,7 @@ class CharacterProfileActivity : AppCompatActivity() {
                                 )
                                 weekDay.text =
                                     jObject.getJSONArray("availability").toString().drop(1)
-                                        .dropLast(1)
+                                        .dropLast(1).replace("\"", " ")
                                 cardsMaterialsBooks.addView(weekDay)
                             }
                         }
